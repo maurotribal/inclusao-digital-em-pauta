@@ -13,7 +13,7 @@
   --neutro: #8ea6bb;
   --borda: rgba(233, 241, 247, 0.12);
   --raio: 10px;
-  --largura: 860px;
+  --largura: 1200px;
 }
 
 * { box-sizing: border-box; }
@@ -72,6 +72,9 @@ a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
   margin: 0 auto;
   padding: 32px 20px 64px;
   list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
 }
 
 .edicao a {
@@ -79,8 +82,7 @@ a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
   grid-template-columns: 90px 1fr auto;
   gap: 16px;
   align-items: baseline;
-  padding: 16px 18px;
-  margin-bottom: 10px;
+  padding: 18px 20px;
   background: var(--superficie);
   border: 1px solid var(--borda);
   border-radius: var(--raio);
@@ -191,8 +193,15 @@ a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
 
 .grade {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Primeira matéria da primeira seção vira destaque (ocupa 2 colunas) */
+@media (min-width: 720px) {
+  .secao:first-of-type .card:first-child { grid-column: span 2; }
+  .secao:first-of-type .card:first-child .card__titulo { font-size: 1.35rem; }
+  .secao:first-of-type .card:first-child .card__resumo { font-size: 1rem; }
 }
 
 .card {
@@ -232,7 +241,7 @@ a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
 
 .card__titulo {
   margin: 0 0 8px;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   line-height: 1.4;
 }
 
@@ -262,4 +271,15 @@ a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
 
 @media (max-width: 560px) {
   .edicao a { grid-template-columns: 1fr; gap: 4px; }
+  .grade { grid-template-columns: 1fr; }
+  .capa { padding: 40px 16px 28px; }
+  .boletim, .edicoes { padding-left: 16px; padding-right: 16px; }
+}
+
+@media (min-width: 561px) and (max-width: 900px) {
+  .grade { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1400px) {
+  :root { --largura: 1360px; }
 }
