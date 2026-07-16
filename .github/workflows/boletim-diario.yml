@@ -33,5 +33,6 @@ jobs:
             echo "Nada novo para publicar hoje."
           else
             git commit -m "Boletim de $(date -u +%d/%m/%Y)"
+            git pull --rebase origin main
             git push
           fi
