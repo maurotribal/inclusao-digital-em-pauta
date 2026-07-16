@@ -127,6 +127,68 @@ async function buscarRss(consulta) {
   }
 }
 
+// ---------- resolução de imagem e link final ----------
+
+async function buscarComTimeout(url, ms) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, {
+      redirect: "follow",
+      signal: ctrl.signal,
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
+        "Accept-Language": "pt-BR,pt;q=0.9"
+      }
+    });
+  } finally { clearTimeout(timer); }
+}
+
+function extrairOgImage(html) {
+  const m = html.match(/<meta[^>]+(?:property|name)=["']og:image(?::secure_url)?["'][^>]+content=["']([^"']+)["']/i)
+    || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+(?:property|name)=["']og:image(?::secure_url)?["']/i);
+  const url = m ? decodificarEntidades(m[1]).trim() : "";
+  return /^https?:\/\//i.test(url) ? url : "";
+}
+
+function extrairDestinoInterstitial(html) {
+  // Página intermediária do Google News: pega a primeira URL externa plausível
+  const m = html.match(/https?:\/\/(?!(?:[a-z0-9-]+\.)*(?:google|gstatic|googleusercontent|youtube)\.[a-z.]+\/)[a-z0-9][^"'<>\\ ]{10,300}/i);
+  return m ? decodificarEntidades(m[0]) : "";
+}
+
+/** Tenta resolver link final + imagem de capa. Nunca lança erro. */
+async function resolverArtigo(item) {
+  try {
+    const r1 = await buscarComTimeout(item.link, 8000);
+    const html1 = await r1.text();
+    const urlFinal1 = r1.url || item.link;
+
+    if (!/news\.google\.com/i.test(urlFinal1)) {
+      item.link = urlFinal1;
+      item.imagem = extrairOgImage(html1);
+      return;
+    }
+    // Ainda no interstitial do Google: tenta achar o destino no HTML
+    const destino = extrairDestinoInterstitial(html1);
+    if (destino) {
+      const r2 = await buscarComTimeout(destino, 8000);
+      const html2 = await r2.text();
+      item.link = r2.url || destino;
+      item.imagem = extrairOgImage(html2);
+    }
+  } catch {
+    /* mantém link original e sem imagem — fallback assume */
+  }
+}
+
+async function resolverTodos(itens) {
+  const LOTE = 3;
+  for (let i = 0; i < itens.length; i += LOTE) {
+    await Promise.all(itens.slice(i, i + LOTE).map(resolverArtigo));
+  }
+}
+
 // ---------- filtragem e classificação ----------
 
 function pontuar(item) {
@@ -161,16 +223,33 @@ function htmlBoletim({ dataIso, dataExtenso, numeroEdicao, grupos, totalItens })
   ).join("\n      ");
 
   const secoes = grupos.map(g => {
-    const cards = g.itens.map(item => `
+    const cards = g.itens.map(item => {
+      // Google News anexa " - Fonte" ao título; remove para não duplicar com o rótulo
+      let titulo = item.titulo;
+      if (item.fonte && titulo.toLowerCase().endsWith(("- " + item.fonte).toLowerCase())) {
+        titulo = titulo.slice(0, -(item.fonte.length + 2)).trim();
+      }
+      const capa = item.imagem
+        ? escaparHtml(item.imagem)
+        : `../assets/capa-${g.cor}.svg`;
+      return `
         <article class="card">
-          <p class="card__fonte">${escaparHtml(item.fonte || "Fonte não informada")}</p>
-          <h3 class="card__titulo"><a href="${escaparHtml(item.link)}" target="_blank" rel="noopener">${escaparHtml(item.titulo)}</a></h3>
-          ${item.resumo ? `<p class="card__resumo">${escaparHtml(item.resumo.slice(0, 220))}${item.resumo.length > 220 ? "…" : ""}</p>` : ""}
-        </article>`).join("\n");
+          <a class="card__capa" href="${escaparHtml(item.link)}" target="_blank" rel="noopener">
+            <img src="${capa}" alt="" loading="lazy" onerror="this.onerror=null;this.src='../assets/capa-${g.cor}.svg'">
+          </a>
+          <div class="card__corpo">
+            <p class="card__fonte">${escaparHtml(item.fonte || "Fonte não informada")}</p>
+            <h3 class="card__titulo"><a href="${escaparHtml(item.link)}" target="_blank" rel="noopener">${escaparHtml(titulo)}</a></h3>
+            ${item.resumo ? `<p class="card__resumo">${escaparHtml(item.resumo.slice(0, 160))}${item.resumo.length > 160 ? "…" : ""}</p>` : ""}
+          </div>
+        </article>`;
+    }).join("\n");
     return `
       <section id="${slugAncora(g.nome)}" class="secao secao--${g.cor}">
         <h2>${escaparHtml(g.nome)}</h2>
+        <div class="grade">
 ${cards}
+        </div>
       </section>`;
   }).join("\n");
 
@@ -267,7 +346,9 @@ ${lista || '      <li class="edicoes__vazio">Nenhuma edição publicada ainda. A
     const tituloNorm = item.titulo.toLowerCase().replace(/\s+/g, " ");
     if (vistos.has(chave) || vistos.has(tituloNorm)) return false;
     vistos.add(chave); vistos.add(tituloNorm);
-    if (jaPublicado.has(chave)) return false;
+    if (jaPublicado.has(chave) || jaPublicado.has(tituloNorm)) return false;
+    item.chaveOriginal = chave;
+    item.tituloNorm = tituloNorm;
     if (item.dataPub.getTime() < limite) return false;
     return pontuar(item) > 0;
   });
@@ -281,6 +362,11 @@ ${lista || '      <li class="edicoes__vazio">Nenhuma edição publicada ainda. A
     console.log("Matérias novas insuficientes. Edição de hoje não publicada.");
     return;
   }
+
+  // 3.5 Resolve link final e imagem de capa de cada matéria
+  await resolverTodos(itens);
+  const comImagem = itens.filter(i => i.imagem).length;
+  console.log(`Imagens resolvidas: ${comImagem}/${itens.length} (demais usam capa da categoria)`);
 
   // 4. Agrupa por categoria
   const mapa = new Map();
@@ -306,7 +392,8 @@ ${lista || '      <li class="edicoes__vazio">Nenhuma edição publicada ainda. A
   fs.writeFileSync(path.join(RAIZ, "index.html"), htmlIndex(boletins), "utf8");
 
   // 6. Atualiza histórico de dedup
-  const novos = itens.map(i => normalizarUrl(i.link));
+  const novos = itens.flatMap(i =>
+    [...new Set([i.chaveOriginal, normalizarUrl(i.link), i.tituloNorm])]);
   salvarJson(ARQ_PUBLICADOS, [...novos, ...publicados].slice(0, LIMITE_HISTORICO));
 
   console.log(`Publicado: posts/${arquivo} (edição nº ${numeroEdicao}, ${itens.length} matérias)`);

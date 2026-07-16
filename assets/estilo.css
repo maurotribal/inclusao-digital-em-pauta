@@ -187,15 +187,40 @@ a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
 .secao--ciano h2 { border-color: var(--ciano); color: var(--ciano); }
 .secao--verde h2 { border-color: var(--verde); color: var(--verde); }
 
-/* cards de matéria */
+/* cards de matéria — grade com imagem */
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 16px;
+}
 
 .card {
   background: var(--superficie);
   border: 1px solid var(--borda);
   border-radius: var(--raio);
-  padding: 16px 18px;
-  margin-bottom: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.15s ease, transform 0.15s ease;
 }
+
+.card:hover { border-color: var(--ciano); transform: translateY(-3px); }
+
+.card__capa {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: var(--superficie-alta);
+}
+
+.card__capa img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card__corpo { padding: 14px 16px 16px; }
 
 .card__fonte {
   margin: 0 0 6px;
