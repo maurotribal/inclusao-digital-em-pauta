@@ -151,34 +151,65 @@ function extrairOgImage(html) {
   return /^https?:\/\//i.test(url) ? url : "";
 }
 
-function extrairDestinoInterstitial(html) {
-  // Página intermediária do Google News: pega a primeira URL externa plausível
-  const m = html.match(/https?:\/\/(?!(?:[a-z0-9-]+\.)*(?:google|gstatic|googleusercontent|youtube)\.[a-z.]+\/)[a-z0-9][^"'<>\\ ]{10,300}/i);
-  return m ? decodificarEntidades(m[0]) : "";
+/**
+ * Resolve a URL real de um link news.google.com/rss/articles/<id>.
+ * Técnica: a página intermediária carrega assinatura (data-n-a-sg) e
+ * timestamp (data-n-a-ts); o endpoint interno batchexecute devolve a URL.
+ */
+async function decodificarLinkGoogleNews(link) {
+  const idm = link.match(/\/(?:articles|read)\/([^?/]+)/);
+  if (!idm) return "";
+  const id = idm[1];
+
+  const r1 = await buscarComTimeout(link, 8000);
+  const html = await r1.text();
+  // Redirect direto já resolveu?
+  if (r1.url && !/news\.google\.com/i.test(r1.url)) return r1.url;
+
+  const sg = (html.match(/data-n-a-sg="([^"]+)"/) || [])[1];
+  const ts = (html.match(/data-n-a-ts="([^"]+)"/) || [])[1];
+  if (!sg || !ts) return "";
+
+  const req = JSON.stringify([[["Fbv4je",
+    `["garturlreq",[["X","X",["X","X"],null,null,1,1,"US:en",null,1,null,null,null,null,null,0,1],"X","X",1,[1,1,1],1,1,null,0,0,null,0],"${id}",${ts},"${sg}"]`,
+    null, "generic"]]]);
+
+  const r2 = await buscarComTimeout2("https://news.google.com/_/DotsSplashUi/data/batchexecute", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+    body: "f.req=" + encodeURIComponent(req)
+  }, 8000);
+  const texto = await r2.text();
+  const m = texto.match(/\[\\?"garturlres\\?",\\?"(https?:[^"\\]+)/);
+  return m ? m[1] : "";
+}
+
+async function buscarComTimeout2(url, opcoes, ms) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, { ...opcoes, signal: ctrl.signal });
+  } finally { clearTimeout(timer); }
 }
 
 /** Tenta resolver link final + imagem de capa. Nunca lança erro. */
 async function resolverArtigo(item) {
   try {
-    const r1 = await buscarComTimeout(item.link, 8000);
-    const html1 = await r1.text();
-    const urlFinal1 = r1.url || item.link;
+    let destino = "";
+    if (/news\.google\.com/i.test(item.link)) {
+      destino = await decodificarLinkGoogleNews(item.link);
+    } else {
+      destino = item.link;
+    }
+    if (!destino) return; // mantém link do Google e capa de reserva
 
-    if (!/news\.google\.com/i.test(urlFinal1)) {
-      item.link = urlFinal1;
-      item.imagem = extrairOgImage(html1);
-      return;
-    }
-    // Ainda no interstitial do Google: tenta achar o destino no HTML
-    const destino = extrairDestinoInterstitial(html1);
-    if (destino) {
-      const r2 = await buscarComTimeout(destino, 8000);
-      const html2 = await r2.text();
-      item.link = r2.url || destino;
-      item.imagem = extrairOgImage(html2);
-    }
+    item.link = destino;
+    const r = await buscarComTimeout(destino, 8000);
+    const html = await r.text();
+    if (r.url) item.link = r.url;
+    item.imagem = extrairOgImage(html);
   } catch {
-    /* mantém link original e sem imagem — fallback assume */
+    /* mantém o que tiver — fallback assume */
   }
 }
 
