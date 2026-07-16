@@ -1,0 +1,240 @@
+/* Inclusão Digital em Pauta — identidade visual
+   Paleta: azul-noite institucional + ciano de tela ligada + âmbar de aviso público */
+
+:root {
+  --fundo: #0d1b2a;
+  --superficie: #14263a;
+  --superficie-alta: #1b3450;
+  --tinta: #e9f1f7;
+  --tinta-fraca: #9fb3c4;
+  --ciano: #3ec6d8;
+  --amarelo: #f0b541;
+  --verde: #5fc98e;
+  --neutro: #8ea6bb;
+  --borda: rgba(233, 241, 247, 0.12);
+  --raio: 10px;
+  --largura: 860px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--tinta);
+  font-family: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  line-height: 1.55;
+}
+
+a { color: var(--ciano); }
+a:focus-visible { outline: 2px solid var(--amarelo); outline-offset: 2px; }
+
+/* ---------- capa (index) ---------- */
+
+.capa {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 64px 20px 40px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.capa__eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+
+.capa h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.capa h1 em, .topo__marca em {
+  font-style: normal;
+  color: var(--ciano);
+}
+
+.capa__tese {
+  margin: 0;
+  max-width: 34em;
+  color: var(--tinta-fraca);
+  font-size: 1.05rem;
+}
+
+/* ---------- lista de edições ---------- */
+
+.edicoes {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+  list-style: none;
+}
+
+.edicao a {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 16px 18px;
+  margin-bottom: 10px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  text-decoration: none;
+  color: var(--tinta);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.edicao a:hover { border-color: var(--ciano); transform: translateX(4px); }
+
+.edicao__numero { font-weight: 700; color: var(--ciano); }
+.edicao__data { text-transform: capitalize; }
+.edicao__contagem { color: var(--tinta-fraca); font-size: 0.9rem; }
+
+.edicoes__vazio {
+  padding: 32px;
+  text-align: center;
+  color: var(--tinta-fraca);
+  border: 1px dashed var(--borda);
+  border-radius: var(--raio);
+}
+
+/* ---------- boletim ---------- */
+
+.topo {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 32px 20px 20px;
+  border-bottom: 1px solid var(--borda);
+}
+
+.topo__marca {
+  font-weight: 800;
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: var(--tinta);
+}
+
+.topo__edicao {
+  margin: 8px 0 0;
+  color: var(--tinta-fraca);
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.boletim {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* chips-âncora */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--borda);
+  background: var(--superficie);
+  color: var(--tinta);
+}
+
+.chip span {
+  font-size: 0.75rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--superficie-alta);
+}
+
+.chip--amarelo { border-color: var(--amarelo); }
+.chip--amarelo span { color: var(--amarelo); }
+.chip--ciano { border-color: var(--ciano); }
+.chip--ciano span { color: var(--ciano); }
+.chip--verde { border-color: var(--verde); }
+.chip--verde span { color: var(--verde); }
+.chip--neutro { border-color: var(--neutro); }
+.chip--neutro span { color: var(--neutro); }
+
+/* seções coloridas */
+
+.secao { margin-bottom: 36px; }
+
+.secao h2 {
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--neutro);
+}
+
+.secao--amarelo h2 { border-color: var(--amarelo); color: var(--amarelo); }
+.secao--ciano h2 { border-color: var(--ciano); color: var(--ciano); }
+.secao--verde h2 { border-color: var(--verde); color: var(--verde); }
+
+/* cards de matéria */
+
+.card {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 16px 18px;
+  margin-bottom: 12px;
+}
+
+.card__fonte {
+  margin: 0 0 6px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tinta-fraca);
+}
+
+.card__titulo {
+  margin: 0 0 8px;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.card__titulo a { color: var(--tinta); text-decoration: none; }
+.card__titulo a:hover { color: var(--ciano); text-decoration: underline; }
+
+.card__resumo {
+  margin: 0;
+  color: var(--tinta-fraca);
+  font-size: 0.92rem;
+}
+
+/* ---------- rodapé ---------- */
+
+.rodape {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+  border-top: 1px solid var(--borda);
+  color: var(--tinta-fraca);
+  font-size: 0.85rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edicao a { transition: none; }
+}
+
+@media (max-width: 560px) {
+  .edicao a { grid-template-columns: 1fr; gap: 4px; }
+}
