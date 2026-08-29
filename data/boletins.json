@@ -1,5 +1,12 @@
 [
   {
+    "numero": 43,
+    "data": "2026-08-29",
+    "dataExtenso": "29 de agosto de 2026",
+    "arquivo": "2026-08-29.html",
+    "total": 7
+  },
+  {
     "numero": 42,
     "data": "2026-08-28",
     "dataExtenso": "28 de agosto de 2026",
