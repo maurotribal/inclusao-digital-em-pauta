@@ -1,5 +1,12 @@
 [
   {
+    "numero": 55,
+    "data": "2026-09-10",
+    "dataExtenso": "10 de setembro de 2026",
+    "arquivo": "2026-09-10.html",
+    "total": 8
+  },
+  {
     "numero": 54,
     "data": "2026-09-09",
     "dataExtenso": "9 de setembro de 2026",
