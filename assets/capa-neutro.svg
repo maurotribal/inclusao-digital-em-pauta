@@ -1,14 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
-  <rect width="320" height="180" fill="#14263a"/>
-  <g stroke="#8ea6bb" stroke-width="2" fill="none" opacity="0.85">
-    <path d="M40 130 h60 v-40 h50 v-30 h60"/>
-    <circle cx="40" cy="130" r="5" fill="#8ea6bb"/>
-    <circle cx="150" cy="60" r="5" fill="#8ea6bb"/>
-    <circle cx="210" cy="60" r="5" fill="#8ea6bb"/>
-    <path d="M100 130 v20 h80" opacity="0.4"/>
-    <path d="M210 60 h50 v50" opacity="0.4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3f6a96"/><stop offset="1" stop-color="#1d3550"/>
+    </linearGradient>
+    <pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#fff" opacity=".18"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <rect width="640" height="360" fill="url(#p)"/>
+  <circle cx="100" cy="70" r="140" fill="#fff" opacity=".07"/>
+  <!-- globo conectado -->
+  <g fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round">
+    <circle cx="320" cy="185" r="88"/>
+    <ellipse cx="320" cy="185" rx="38" ry="88"/>
+    <line x1="232" y1="185" x2="408" y2="185"/>
+    <path d="M246 140 Q320 158 394 140"/>
+    <path d="M246 230 Q320 212 394 230"/>
   </g>
-  <rect x="235" y="95" width="55" height="38" rx="4" fill="none" stroke="#8ea6bb" stroke-width="2.5"/>
-  <line x1="248" y1="140" x2="277" y2="140" stroke="#8ea6bb" stroke-width="2.5"/>
-  <text x="24" y="40" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#8ea6bb" letter-spacing="2">INCLUSÃO DIGITAL</text>
+  <g fill="#fff">
+    <circle cx="430" cy="110" r="9"/><circle cx="208" cy="262" r="9"/>
+  </g>
+  <g stroke="#fff" stroke-width="4" stroke-dasharray="2 9" stroke-linecap="round">
+    <line x1="430" y1="110" x2="390" y2="140"/><line x1="208" y1="262" x2="250" y2="232"/>
+  </g>
 </svg>

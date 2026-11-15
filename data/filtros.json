@@ -1,0 +1,9 @@
+{
+  "blocklistDominios": ["plantaobrasil.net"],
+  "allowlistDominios": ["gov.br", "ebc.com.br", "nic.br", "cetic.br", "g1.globo.com", "rnp.br"],
+  "dominiosNacionais": ["globo.com", "metropoles.com", "cnnbrasil.com.br", "poder360.com.br"],
+  "termosNegativos": ["litros de água", "economia de água"],
+  "maxEstrangeirosPorEdicao": 1,
+  "diasEntreMesmoEstrangeiro": 7,
+  "maxPorDominio": 2
+}

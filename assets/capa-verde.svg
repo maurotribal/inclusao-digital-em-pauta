@@ -1,14 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180">
-  <rect width="320" height="180" fill="#14263a"/>
-  <g stroke="#5fc98e" stroke-width="2" fill="none" opacity="0.85">
-    <path d="M40 130 h60 v-40 h50 v-30 h60"/>
-    <circle cx="40" cy="130" r="5" fill="#5fc98e"/>
-    <circle cx="150" cy="60" r="5" fill="#5fc98e"/>
-    <circle cx="210" cy="60" r="5" fill="#5fc98e"/>
-    <path d="M100 130 v20 h80" opacity="0.4"/>
-    <path d="M210 60 h50 v50" opacity="0.4"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#38a169"/><stop offset="1" stop-color="#1c5a3b"/>
+    </linearGradient>
+    <pattern id="p" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.6" fill="#fff" opacity=".18"/>
+    </pattern>
+  </defs>
+  <rect width="640" height="360" fill="url(#g)"/>
+  <rect width="640" height="360" fill="url(#p)"/>
+  <circle cx="540" cy="300" r="150" fill="#fff" opacity=".07"/>
+  <!-- sinal de wi-fi -->
+  <g fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round">
+    <path d="M200 160 Q320 60 440 160"/>
+    <path d="M238 198 Q320 128 402 198"/>
+    <path d="M276 236 Q320 196 364 236"/>
   </g>
-  <rect x="235" y="95" width="55" height="38" rx="4" fill="none" stroke="#5fc98e" stroke-width="2.5"/>
-  <line x1="248" y1="140" x2="277" y2="140" stroke="#5fc98e" stroke-width="2.5"/>
-  <text x="24" y="40" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#5fc98e" letter-spacing="2">INCLUSÃO DIGITAL</text>
+  <circle cx="320" cy="270" r="14" fill="#fff"/>
 </svg>
