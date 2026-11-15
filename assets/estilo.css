@@ -187,7 +187,7 @@ main > .edicoes { padding: 32px 20px 64px; }
 .edicao a:hover { border-color: var(--primaria); transform: translateY(-2px); }
 
 .edicao__numero { font-weight: 800; color: var(--primaria); }
-.edicao__data { text-transform: capitalize; }
+.edicao__data { }
 .edicao__contagem { color: var(--tinta-fraca); font-size: .85rem; }
 
 .edicoes__vazio {
@@ -429,6 +429,265 @@ main > .edicoes { padding: 32px 20px 64px; }
   font-size: .85rem;
 }
 .rodape p { margin: 0 0 8px; max-width: 60em; }
+
+/* =========================================================
+   CAPA ESTILO PORTAL (index.html, body.portal) — v4
+   ========================================================= */
+
+.portal { background: var(--superficie); }
+.portal .barra { position: sticky; }
+
+.p-faixa-data { border-bottom: 1px solid var(--borda); background: var(--fundo); }
+.p-faixa-data > div {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: .85rem;
+}
+.p-faixa-data__hoje { color: var(--tinta-fraca); }
+.p-faixa-data__hoje::first-letter { text-transform: uppercase; }
+.p-faixa-data a { font-weight: 700; text-decoration: none; }
+.p-faixa-data a:hover { text-decoration: underline; }
+
+.p-principal { max-width: var(--largura); margin: 0 auto; padding: 24px 20px 16px; }
+
+.p-titulo-bloco {
+  margin: 0 0 16px;
+  padding-left: 10px;
+  border-left: 4px solid var(--primaria);
+  font-size: .95rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* metadados: FONTE • data */
+.p-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: .72rem;
+  color: var(--tinta-fraca);
+  white-space: nowrap;
+}
+.p-fonte {
+  font-weight: 700;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.p-meta time { flex-shrink: 0; }
+.p-meta time::before { content: "•"; margin-right: 8px; opacity: .6; }
+
+/* links de título */
+.p-card h3 a, .p-bloco__principal h3 a, .p-compacto h3 a, .p-mini__titulo {
+  color: var(--tinta);
+  text-decoration: none;
+}
+.p-card h3 a:hover, .p-bloco__principal h3 a:hover, .p-compacto h3 a:hover, .p-mini__titulo:hover {
+  color: var(--primaria);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* imagens com zoom suave */
+.p-card__capa, .p-mini__capa, .p-compacto__capa {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--superficie-alta);
+}
+.p-card__capa img, .p-mini__capa img, .p-compacto__capa img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .35s ease;
+}
+.p-card:hover img, .p-bloco__principal:hover img, .p-mini:hover img, .p-compacto:hover img { transform: scale(1.05); }
+
+/* ---- 1. topo: destaque + últimas ---- */
+
+.p-topo-grade {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.p-hero__link {
+  position: relative;
+  display: block;
+  min-height: 460px;
+  border-radius: var(--raio);
+  overflow: hidden;
+  background: #1d3550;
+  color: #fff;
+  text-decoration: none;
+}
+.p-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.p-hero__link:hover .p-hero__img { transform: scale(1.03); }
+.p-hero__sombra {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(6, 14, 24, .92) 0%, rgba(6, 14, 24, .55) 45%, rgba(6, 14, 24, 0) 75%);
+}
+.p-hero__texto {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 28px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.p-hero__texto .card__tag { position: static; }
+.p-hero__titulo {
+  font-size: clamp(1.5rem, 3vw, 2.35rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.015em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .35);
+}
+.p-hero__link:hover .p-hero__titulo { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
+.p-hero__resumo { font-size: 1rem; color: #dbe6f2; max-width: 46em; }
+.p-hero__texto .p-meta { color: #c6d4e2; }
+
+.p-ultimas ol { list-style: none; margin: 0; padding: 0; }
+
+/* ---- miniaturas (coluna e listas dos blocos) ---- */
+
+.p-mini {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--borda);
+}
+.p-mini:first-child { padding-top: 0; }
+.p-mini:last-child { border-bottom: none; }
+.p-mini__capa { aspect-ratio: 4 / 3; border-radius: 6px; }
+.p-mini > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.p-mini__titulo {
+  font-weight: 700;
+  font-size: .92rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ---- 2. faixa de cards com foto ---- */
+
+.p-faixa {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  margin: 36px 0 8px;
+  padding-top: 28px;
+  border-top: 1px solid var(--borda);
+}
+.p-card { display: flex; flex-direction: column; gap: 8px; }
+.p-card__capa { aspect-ratio: 16 / 10; }
+.p-card__capa .card__tag { left: 8px; top: 8px; font-size: .62rem; padding: 3px 8px; }
+.p-card h3 { margin: 0; font-size: 1.05rem; line-height: 1.3; font-weight: 800; }
+
+/* ---- 3. blocos por categoria ---- */
+
+.p-blocos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid var(--borda);
+}
+.p-bloco--amarelo .p-titulo-bloco { border-color: var(--amarelo); color: var(--amarelo); }
+.p-bloco--ciano .p-titulo-bloco { border-color: var(--ciano); color: var(--ciano); }
+.p-bloco--verde .p-titulo-bloco { border-color: var(--verde); color: var(--verde); }
+.p-bloco--neutro .p-titulo-bloco { border-color: var(--neutro); color: var(--neutro); }
+
+.p-bloco__principal { display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; border-bottom: 1px solid var(--borda); }
+.p-bloco__principal .p-card__capa { aspect-ratio: 16 / 10; }
+.p-bloco__principal h3 { margin: 0; font-size: 1.02rem; line-height: 1.3; font-weight: 800; }
+.p-bloco__lista { list-style: none; margin: 0; padding: 0; }
+.p-bloco__lista .p-mini { grid-template-columns: 72px minmax(0, 1fr); }
+.p-bloco__lista .p-mini:first-child { padding-top: 12px; }
+.p-bloco__lista .p-mini__titulo { font-size: .88rem; }
+
+/* ---- 4. mais notícias ---- */
+
+.p-mais { margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--borda); }
+.p-mais__grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px 28px;
+}
+.p-compacto { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; align-items: start; }
+.p-compacto__capa { aspect-ratio: 4 / 3; }
+.p-compacto > div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.p-compacto h3 { margin: 0; font-size: .95rem; line-height: 1.3; font-weight: 700; }
+
+/* ---- 5. edições ---- */
+
+.portal .arquivo { padding: 0; margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--borda); }
+.portal .edicoes { padding: 0 0 8px; }
+.portal .edicao a {
+  box-shadow: none;
+  background: var(--fundo);
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  padding: 14px 16px;
+}
+.portal .edicao__data { grid-column: 1 / -1; grid-row: 2; font-weight: 600; }
+.p-mais-edicoes { margin-top: 8px; }
+.p-mais-edicoes summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--primaria);
+  padding: 8px 0 14px;
+}
+
+@media (max-width: 1080px) {
+  .p-faixa, .p-blocos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .p-topo-grade { grid-template-columns: 1fr; }
+  .p-hero__link { min-height: 380px; }
+}
+
+@media (max-width: 560px) {
+  .p-principal, .p-faixa-data > div { padding-left: 16px; padding-right: 16px; }
+  .p-hero__link { min-height: 340px; border-radius: 10px; }
+  .p-hero__texto { padding: 20px; }
+  .p-hero__resumo { display: none; }
+  .p-faixa { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .p-card h3 { font-size: .95rem; }
+  .p-blocos { grid-template-columns: 1fr; }
+  .p-mais__grade { grid-template-columns: 1fr; }
+  .p-compacto { grid-template-columns: 96px minmax(0, 1fr); }
+}
 
 /* ---------- responsividade ---------- */
 
