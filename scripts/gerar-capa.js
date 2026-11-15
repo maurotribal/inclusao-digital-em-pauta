@@ -284,7 +284,7 @@ ${antigas.map(item).join("\n")}
 const ARQ_PARCEIROS = path.join(RAIZ, "data", "fontes-parceiras.json");
 const PARCEIROS_PADRAO = [
   { nome: "O Que a Notícia Não Disse", url: "https://oqueanoticianaodisse.blogspot.com",
-    rotulo: "Opinião", quantidade: 3 }
+    rotulo: "Opinião", quantidade: 6 }
 ];
 
 function urlFeedBlogger(base, qtd, callback) {
@@ -311,7 +311,7 @@ function postsDoFeedBlogger(json, qtd) {
       link,
       imagem: thumb ? ampliarImagem(thumb) : imgConteudo,
       data: (e.published && e.published.$t) || "",
-      resumo: B.cortar(B.limparHtml(conteudo), 150)
+      resumo: B.cortar(B.limparHtml(conteudo).replace(/^Publicado em \d{1,2}\/\d{1,2}\/\d{4}( às \d{1,2}:\d{2})?\s*/i, ""), 150)
     };
   }).filter(p => p.titulo && /^https?:/.test(p.link));
 }
@@ -320,7 +320,7 @@ async function buscarParceiros() {
   const lista = B.lerJson(ARQ_PARCEIROS, PARCEIROS_PADRAO);
   const out = [];
   for (const p of lista) {
-    const qtd = p.quantidade || 3;
+    const qtd = p.quantidade || 6;
     let posts = [];
     try {
       const ctrl = new AbortController();
@@ -352,29 +352,36 @@ function cardParceiroHtml(post, cor) {
 function secaoParceiroHtml(p, i) {
   const id = `parceiro-${i}`;
   return `
-  <section class="p-parceiro" id="${id}" data-feed="${esc(urlFeedBlogger(p.url, p.quantidade, "__CB__"))}" data-qtd="${p.quantidade}"${p.posts.length ? "" : " hidden"}>
+  <section class="p-parceiro" id="${id}" data-feed="${esc(urlFeedBlogger(p.url, p.quantidade, "__CB__"))}" data-lote="${p.quantidade}"${p.posts.length ? "" : " hidden"}>
     <div class="p-parceiro__cabecalho">
       <div>
         ${p.rotulo ? `<span class="p-parceiro__rotulo">${esc(p.rotulo)}</span>` : ""}
         <h2>${esc(p.nome)}</h2>
       </div>
-      <a class="p-parceiro__link" href="${esc(p.url)}" target="_blank" rel="noopener">Ver o blog →</a>
+      <div class="p-parceiro__controles">
+        <button type="button" class="p-parceiro__seta" data-dir="-1" aria-label="Posts anteriores" disabled>‹</button>
+        <button type="button" class="p-parceiro__seta" data-dir="1" aria-label="Mais posts">›</button>
+        <a class="p-parceiro__link" href="${esc(p.url)}" target="_blank" rel="noopener">Ver o blog →</a>
+      </div>
     </div>
-    <div class="p-parceiro__grade">
+    <div class="p-parceiro__trilho" tabindex="0" role="region" aria-label="Posts do blog ${esc(p.nome)}">
 ${p.posts.map(post => cardParceiroHtml(post, "neutro")).join("\n")}
     </div>
   </section>`;
 }
 
 /**
- * Atualização ao vivo (ES5, sem dependências). Para cada seção com data-feed,
- * carrega o feed via JSONP e redesenha os cards. Falhou? Mantém o que o robô gravou.
+ * Carrossel arrastável com carregamento contínuo (ES5, sem dependências).
+ * 1ª busca: atualiza os posts gravados pelo robô (start-index=1).
+ * Ao chegar perto do fim do trilho: busca o próximo lote (start-index=carregados+1).
+ * Para quando o blog devolve menos posts que o lote. Falhou? Mantém o que já está na tela.
  */
 function scriptParceirosHtml() {
   return `<script>
 (function () {
   function ampliar(u) { return String(u || "").replace(/\\/s\\d+(-c)?\\//, "/w640-h400-c/").replace(/=s\\d+(-c)?$/, "=w640-h400-c"); }
   function texto(h) { var d = document.createElement("div"); d.innerHTML = h || ""; return (d.textContent || "").replace(/\\s+/g, " ").replace(/^\\s+|\\s+$/g, ""); }
+  function limparResumo(t) { return t.replace(/^Publicado em \\d{1,2}\\/\\d{1,2}\\/\\d{4}( às \\d{1,2}:\\d{2})?\\s*/i, ""); }
   function cortar(t, n) { if (t.length <= n) return t; t = t.slice(0, n); var i = t.lastIndexOf(" "); return (i > n * 0.6 ? t.slice(0, i) : t) + "\\u2026"; }
   function dataCurta(iso) {
     var d = new Date(iso); if (isNaN(d)) return "";
@@ -384,41 +391,87 @@ function scriptParceirosHtml() {
   }
   function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
   function link(href, cls) { var a = el("a", cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  function hrefDe(e) { var l = e.link || [], h = ""; for (var j = 0; j < l.length; j++) if (l[j].rel === "alternate") h = l[j].href; return h; }
+  function cardDe(e, href) {
+    var conteudo = (e.content && e.content.$t) || (e.summary && e.summary.$t) || "";
+    var m = /<img[^>]+src="([^"]+)"/i.exec(conteudo);
+    var thumb = e["media$thumbnail"] && e["media$thumbnail"].url;
+    var art = el("article", "p-card p-parceiro__card");
+    var capa = link(href, "p-card__capa"); capa.tabIndex = -1; capa.setAttribute("aria-hidden", "true");
+    var img = document.createElement("img"); img.alt = ""; img.loading = "lazy";
+    img.onerror = function () { this.onerror = null; this.src = "assets/capa-neutro.svg"; };
+    img.src = thumb ? ampliar(thumb) : (m ? m[1] : "assets/capa-neutro.svg");
+    capa.appendChild(img); art.appendChild(capa);
+    var data = dataCurta(e.published && e.published.$t);
+    if (data) { var meta = el("span", "p-meta"); meta.appendChild(el("time", "", data)); art.appendChild(meta); }
+    var h3 = el("h3"); var ta = link(href); ta.textContent = texto(e.title && e.title.$t); h3.appendChild(ta); art.appendChild(h3);
+    var res = cortar(limparResumo(texto(conteudo)), 150); if (res) art.appendChild(el("p", "p-parceiro__resumo", res));
+    return art;
+  }
+  var seq = 0;
   var secoes = document.querySelectorAll(".p-parceiro[data-feed]");
-  for (var i = 0; i < secoes.length; i++) (function (sec, n) {
-    var cb = "__parceiro" + n + "_" + new Date().getTime();
-    window[cb] = function (json) {
-      try {
-        var ent = (json && json.feed && json.feed.entry) || [], qtd = +sec.getAttribute("data-qtd") || 3;
-        var grade = sec.querySelector(".p-parceiro__grade"), novos = [];
-        for (var k = 0; k < ent.length && novos.length < qtd; k++) {
-          var e = ent[k], href = "", links = e.link || [];
-          for (var j = 0; j < links.length; j++) if (links[j].rel === "alternate") href = links[j].href;
-          if (!href) continue;
-          var conteudo = (e.content && e.content.$t) || (e.summary && e.summary.$t) || "";
-          var m = /<img[^>]+src="([^"]+)"/i.exec(conteudo);
-          var thumb = e["media$thumbnail"] && e["media$thumbnail"].url;
-          var art = el("article", "p-card p-parceiro__card");
-          var capa = link(href, "p-card__capa"); capa.tabIndex = -1; capa.setAttribute("aria-hidden", "true");
-          var img = document.createElement("img"); img.alt = ""; img.loading = "lazy";
-          img.onerror = function () { this.onerror = null; this.src = "assets/capa-neutro.svg"; };
-          img.src = thumb ? ampliar(thumb) : (m ? m[1] : "assets/capa-neutro.svg");
-          capa.appendChild(img); art.appendChild(capa);
-          var data = dataCurta(e.published && e.published.$t);
-          if (data) { var meta = el("span", "p-meta"); meta.appendChild(el("time", "", data)); art.appendChild(meta); }
-          var h3 = el("h3"); var ta = link(href); ta.textContent = texto(e.title && e.title.$t); h3.appendChild(ta); art.appendChild(h3);
-          var res = cortar(texto(conteudo), 150); if (res) art.appendChild(el("p", "p-parceiro__resumo", res));
-          novos.push(art);
+  for (var i = 0; i < secoes.length; i++) (function (sec) {
+    var trilho = sec.querySelector(".p-parceiro__trilho");
+    var setas = sec.querySelectorAll(".p-parceiro__seta");
+    var lote = +sec.getAttribute("data-lote") || 6;
+    var base = sec.getAttribute("data-feed");
+    var carregados = 0, fim = false, carregando = false, primeira = true, vistos = {}, aviso = null;
+
+    function noFim() { return trilho.scrollLeft + trilho.clientWidth >= trilho.scrollWidth - 8; }
+    function atualizarSetas() {
+      setas[0].disabled = trilho.scrollLeft <= 8;
+      setas[1].disabled = fim && noFim();
+    }
+    function mostrarCarregando(sim) {
+      if (sim && !aviso) { aviso = el("div", "p-parceiro__carregando", "Carregando mais posts\\u2026"); trilho.appendChild(aviso); }
+      if (!sim && aviso) { if (aviso.parentNode) aviso.parentNode.removeChild(aviso); aviso = null; }
+    }
+    function buscar(inicio, pronto) {
+      var nome = "__parceiro_" + (++seq) + "_" + new Date().getTime();
+      var s = document.createElement("script");
+      var encerrar = function () { try { delete window[nome]; } catch (x) { window[nome] = undefined; } if (s.parentNode) s.parentNode.removeChild(s); };
+      window[nome] = function (json) { encerrar(); pronto(json); };
+      s.onerror = function () { encerrar(); carregando = false; mostrarCarregando(false); };
+      s.src = base.replace("__CB__", nome) + "&start-index=" + inicio;
+      document.body.appendChild(s);
+    }
+    function carregarMais() {
+      if (fim || carregando) return;
+      carregando = true;
+      if (!primeira) mostrarCarregando(true);
+      buscar(primeira ? 1 : carregados + 1, function (json) {
+        var ent = (json && json.feed && json.feed.entry) || [];
+        mostrarCarregando(false);
+        if (primeira && ent.length) { trilho.innerHTML = ""; vistos = {}; carregados = 0; }
+        primeira = false;
+        for (var k = 0; k < ent.length; k++) {
+          var href = hrefDe(ent[k]);
+          if (!href || vistos[href]) continue;
+          vistos[href] = true;
+          trilho.appendChild(cardDe(ent[k], href));
         }
-        if (novos.length) { grade.innerHTML = ""; for (var q = 0; q < novos.length; q++) grade.appendChild(novos[q]); sec.hidden = false; }
-      } catch (err) { /* mantém versão do robô */ }
-      try { delete window[cb]; } catch (x) { window[cb] = undefined; }
-    };
-    var s = document.createElement("script");
-    s.src = sec.getAttribute("data-feed").replace("__CB__", cb);
-    s.onerror = function () { /* blog fora do ar: mantém versão do robô */ };
-    document.body.appendChild(s);
-  })(secoes[i], i);
+        carregados += ent.length;
+        if (ent.length < lote) fim = true;
+        if (trilho.children.length) sec.hidden = false;
+        carregando = false;
+        atualizarSetas();
+        verificar();
+      });
+    }
+    function verificar() {
+      if (trilho.scrollLeft + trilho.clientWidth * 1.8 >= trilho.scrollWidth) carregarMais();
+    }
+    var agendado = false;
+    trilho.addEventListener("scroll", function () {
+      if (agendado) return; agendado = true;
+      setTimeout(function () { agendado = false; atualizarSetas(); verificar(); }, 120);
+    });
+    for (var b = 0; b < setas.length; b++) setas[b].addEventListener("click", function () {
+      var passo = trilho.clientWidth * 0.9 * (+this.getAttribute("data-dir"));
+      if (trilho.scrollBy) trilho.scrollBy({ left: passo, behavior: "smooth" }); else trilho.scrollLeft += passo;
+    });
+    carregarMais();
+  })(secoes[i]);
 })();
 </script>`;
 }
@@ -502,7 +555,7 @@ ${B.metaTags({
   url: `${B.URL_BASE}/`,
   imagem: hero && hero.imagem
 })}
-<link rel="stylesheet" href="assets/estilo.css">
+<link rel="stylesheet" href="assets/estilo.css?v=${B.versaoCss()}">
 </head>
 <body class="portal">
 ${B.cabecalhoSite("")}

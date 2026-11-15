@@ -1,4 +1,4 @@
-/* Inclusão Digital em Pauta — v3
+/* Inclusão Digital em Pauta — v4.3
    Tema claro editorial + modo escuro automático.
    Compatível com edições antigas (mesmas classes de card/grade/seção). */
 
@@ -643,12 +643,54 @@ main > .edicoes { padding: 32px 20px 64px; }
 .p-parceiro__link { font-weight: 700; font-size: .9rem; text-decoration: none; }
 .p-parceiro__link:hover { text-decoration: underline; }
 
-.p-parceiro__grade {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+/* controles: setas + link */
+.p-parceiro__controles { display: flex; align-items: center; gap: 8px; }
+.p-parceiro__controles .p-parceiro__link { margin-left: 8px; }
+.p-parceiro__seta {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid var(--borda);
+  background: var(--superficie);
+  color: var(--tinta);
+  font-size: 1.5rem;
+  line-height: 1;
+  padding: 0 0 3px;
+  cursor: pointer;
+  transition: border-color .15s ease, color .15s ease, opacity .15s ease;
 }
-.p-parceiro__card h3 { font-size: 1.05rem; }
+.p-parceiro__seta:hover:not(:disabled) { border-color: var(--primaria); color: var(--primaria); }
+.p-parceiro__seta:disabled { opacity: .35; cursor: default; }
+
+/* trilho arrastável */
+.p-parceiro__trilho {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 10px;
+}
+.p-parceiro__trilho:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 4px; border-radius: 8px; }
+.p-parceiro__trilho > .p-parceiro__card,
+.p-parceiro__carregando {
+  flex: 0 0 calc((100% - 40px) / 3);
+  scroll-snap-align: start;
+}
+.p-parceiro__carregando {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  border: 2px dashed var(--borda);
+  border-radius: 8px;
+  color: var(--tinta-fraca);
+  font-size: .9rem;
+}
+.p-parceiro__card h3 { font-size: 1.02rem; }
 .p-parceiro__resumo {
   margin: 0;
   font-size: .88rem;
@@ -659,20 +701,21 @@ main > .edicoes { padding: 32px 20px 64px; }
   overflow: hidden;
 }
 
-@media (max-width: 860px) {
-  .p-parceiro .p-parceiro__grade { grid-template-columns: 1fr; gap: 16px; }
-  .p-parceiro .p-parceiro__card {
-    display: grid;
-    grid-template-columns: 112px minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
-    column-gap: 14px;
-    row-gap: 4px;
-    align-items: start;
-  }
-  .p-parceiro .p-parceiro__card .p-card__capa { grid-row: 1 / span 2; aspect-ratio: 4 / 3; }
-  .p-parceiro .p-parceiro__card h3 { font-size: .95rem; }
-  .p-parceiro .p-parceiro__resumo { display: none; }
+@media (max-width: 1080px) {
+  .p-parceiro__trilho > .p-parceiro__card, .p-parceiro__carregando { flex-basis: calc((100% - 20px) / 2); }
+}
+
+@media (max-width: 640px) {
   .p-parceiro { padding: 18px 16px; }
+  .p-parceiro__trilho { gap: 14px; }
+  .p-parceiro__trilho > .p-parceiro__card, .p-parceiro__carregando { flex-basis: 78%; }
+  .p-parceiro__seta { display: none; }   /* no celular, arrasta com o dedo */
+  .p-parceiro__controles .p-parceiro__link { margin-left: 0; }
+  .p-parceiro .p-parceiro__resumo { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p-parceiro__trilho { scroll-behavior: auto; }
 }
 
 /* ---- 2. faixa de cards com foto ---- */

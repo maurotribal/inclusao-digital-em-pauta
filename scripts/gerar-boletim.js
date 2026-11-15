@@ -501,6 +501,19 @@ function cardHtml(item, prefixo, variante) {
         </article>`;
 }
 
+/** Versão do CSS (8 primeiros caracteres do hash do conteúdo). Muda quando o arquivo muda,
+ *  e o navegador do visitante baixa o CSS novo na hora em vez de usar o guardado em cache. */
+let _versaoCss = null;
+function versaoCss() {
+  if (_versaoCss === null) {
+    try {
+      _versaoCss = require("crypto").createHash("md5")
+        .update(fs.readFileSync(path.join(RAIZ, "assets", "estilo.css"))).digest("hex").slice(0, 8);
+    } catch { _versaoCss = String(Date.now()); }
+  }
+  return _versaoCss;
+}
+
 function cabecalhoSite(prefixo) {
   return `<div class="barra">
   <header class="topo">
@@ -543,7 +556,7 @@ ${metaTags({
   descricao: cortar(descricao, 200),
   url, imagem: manchete.imagem, tipo: "article"
 })}
-<link rel="stylesheet" href="../assets/estilo.css">
+<link rel="stylesheet" href="../assets/estilo.css?v=${versaoCss()}">
 </head>
 <body>
 ${cabecalhoSite("../")}
@@ -709,7 +722,7 @@ Object.assign(module.exports, {
   FILTROS_PADRAO, principal,
   // usados por gerar-capa.js
   escaparHtml, limparHtml, decodificarEntidades, normalizar, metaTags,
-  cabecalhoSite, rodapeSite, lerJson, salvarJson, URL_BASE, NOME_SITE
+  cabecalhoSite, rodapeSite, lerJson, salvarJson, URL_BASE, NOME_SITE, versaoCss
 });
 
 if (require.main === module) {
