@@ -565,65 +565,11 @@ ${rodapeSite("../")}
 `;
 }
 
-function htmlIndex(boletins) {
-  const ultima = boletins[0];
-  let vitrine = "";
-  if (ultima && Array.isArray(ultima.destaques) && ultima.destaques.length) {
-    const [principal, ...outros] = ultima.destaques;
-    vitrine = `
-  <section class="vitrine">
-    <div class="vitrine__cabecalho">
-      <h2>Edição de ${escaparHtml(ultima.dataExtenso)}</h2>
-      <a class="vitrine__link" href="posts/${ultima.arquivo}">Ver edição completa · ${ultima.total} matérias</a>
-    </div>
-${cardHtml(principal, "", "manchete")}
-    ${outros.length ? `<div class="grade">\n${outros.map(i => cardHtml(i, "", "card")).join("\n")}\n    </div>` : ""}
-  </section>`;
-  }
-
-  const lista = boletins.map(b => `
-      <li class="edicao">
-        <a href="posts/${b.arquivo}">
-          <span class="edicao__numero">Nº ${b.numero}</span>
-          <span class="edicao__data">${escaparHtml(b.dataExtenso)}</span>
-          <span class="edicao__contagem">${b.total} matérias</span>
-        </a>
-      </li>`).join("\n");
-
-  const imgOg = ultima && ultima.destaques && ultima.destaques[0] && ultima.destaques[0].imagem;
-
-  return `<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-${metaTags({
-  titulo: `${NOME_SITE} — boletim diário`,
-  descricao: "Boletim diário automático com as principais notícias sobre inclusão digital, alfabetização digital e conectividade no Brasil.",
-  url: `${URL_BASE}/`, imagem: imgOg
-})}
-<link rel="stylesheet" href="assets/estilo.css">
-</head>
-<body>
-${cabecalhoSite("")}
-<header class="capa">
-  <p class="capa__eyebrow">Boletim diário · publicação automática</p>
-  <h1>Inclusão Digital <em>em Pauta</em></h1>
-  <p class="capa__tese">Toda manhã, as notícias que importam sobre alfabetização digital, políticas públicas e acesso à internet no Brasil, reunidas em uma edição.</p>
-</header>
-<main>
-${vitrine}
-  <section class="arquivo" id="edicoes">
-    <h2>Todas as edições</h2>
-    <ul class="edicoes">
-${lista || '      <li class="edicoes__vazio">Nenhuma edição publicada ainda. A primeira sai na próxima execução do robô.</li>'}
-    </ul>
-  </section>
-</main>
-${rodapeSite("")}
-</body>
-</html>
-`;
+// A capa (index.html) é gerada por scripts/gerar-capa.js.
+// Require tardio: gerar-capa.js importa este arquivo.
+function gerarCapa(novas) {
+  try { require("./gerar-capa.js").gerarCapa(novas); }
+  catch (e) { console.error("Falha ao gerar a capa:", e.message); }
 }
 
 // ---------- fluxo principal ----------
@@ -639,6 +585,13 @@ async function principal() {
   const jaPublicado = new Set(publicados);
   const titulosHistorico = publicados.filter(p => !/^https?:/.test(p)).map(radicais);
   const estrangeirosRecentes = lerJson(ARQ_ESTRANGEIROS, {});
+
+  // Edição do dia já publicada: não refaz (evita trocar matérias já no ar), só atualiza a capa
+  if (lerJson(ARQ_BOLETINS, []).some(b => b.data === dataIso)) {
+    console.log(`Edição de ${dataIso} já publicada. Só a capa será regenerada.`);
+    gerarCapa();
+    return;
+  }
 
   // 1. Coleta
   let itens = [];
@@ -679,6 +632,7 @@ async function principal() {
 
   if (escolhidos.length < MIN_ITENS) {
     console.log("Matérias novas insuficientes. Edição de hoje não publicada.");
+    gerarCapa();
     return;
   }
 
@@ -709,7 +663,7 @@ async function principal() {
   const grupos = [...mapa.values()].sort((a, b) => b.itens.length - a.itens.length);
 
   // 5. Gera arquivos
-  const boletins = lerJson(ARQ_BOLETINS, []).filter(b => b.data !== dataIso); // reexecução no mesmo dia substitui
+  const boletins = lerJson(ARQ_BOLETINS, []);
   const numeroEdicao = boletins.length ? Math.max(...boletins.map(b => b.numero || 0)) + 1 : 1;
   const arquivo = `${dataIso}.html`;
 
@@ -725,7 +679,12 @@ async function principal() {
   boletins.unshift({ numero: numeroEdicao, data: dataIso, dataExtenso, arquivo, total: escolhidos.length, destaques });
   salvarJson(ARQ_BOLETINS, boletins);
 
-  fs.writeFileSync(path.join(RAIZ, "index.html"), htmlIndex(boletins), "utf8");
+  // Capa estilo portal: notícias desta edição entram no topo de data/noticias.json
+  gerarCapa([manchete, ...demais].map(i => ({
+    titulo: i.titulo, link: i.link, imagem: i.imagem, fonte: i.fonte, dominio: i.dominio,
+    resumo: i.resumo, categoria: i.categoria, cor: i.cor,
+    data: (i.publicadoEm || i.dataPub).toISOString(), edicao: numeroEdicao, arquivo
+  })));
 
   // 6. Históricos
   const novos = escolhidos.flatMap(i =>
@@ -749,5 +708,8 @@ if (require.main === module) {
 module.exports = {
   radicais, nomesProprios, sobreposicao, semelhantes, ehEstrangeiro, pontuarFonte,
   temTermoNegativo, selecionar, extrairMetaPagina, resumoUtil, formatarData, cortar,
-  FILTROS_PADRAO, principal
+  FILTROS_PADRAO, principal,
+  // usados por gerar-capa.js
+  escaparHtml, limparHtml, decodificarEntidades, normalizar, metaTags,
+  cabecalhoSite, rodapeSite, lerJson, salvarJson, URL_BASE, NOME_SITE
 };
