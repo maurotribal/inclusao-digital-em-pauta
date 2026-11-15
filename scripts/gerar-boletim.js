@@ -567,8 +567,8 @@ ${rodapeSite("../")}
 
 // A capa (index.html) é gerada por scripts/gerar-capa.js.
 // Require tardio: gerar-capa.js importa este arquivo.
-function gerarCapa(novas) {
-  try { require("./gerar-capa.js").gerarCapa(novas); }
+async function gerarCapa(novas) {
+  try { await require("./gerar-capa.js").gerarCapa(novas); }
   catch (e) { console.error("Falha ao gerar a capa:", e.message); }
 }
 
@@ -589,7 +589,7 @@ async function principal() {
   // Edição do dia já publicada: não refaz (evita trocar matérias já no ar), só atualiza a capa
   if (lerJson(ARQ_BOLETINS, []).some(b => b.data === dataIso)) {
     console.log(`Edição de ${dataIso} já publicada. Só a capa será regenerada.`);
-    gerarCapa();
+    await gerarCapa();
     return;
   }
 
@@ -632,7 +632,7 @@ async function principal() {
 
   if (escolhidos.length < MIN_ITENS) {
     console.log("Matérias novas insuficientes. Edição de hoje não publicada.");
-    gerarCapa();
+    await gerarCapa();
     return;
   }
 
@@ -680,7 +680,7 @@ async function principal() {
   salvarJson(ARQ_BOLETINS, boletins);
 
   // Capa estilo portal: notícias desta edição entram no topo de data/noticias.json
-  gerarCapa([manchete, ...demais].map(i => ({
+  await gerarCapa([manchete, ...demais].map(i => ({
     titulo: i.titulo, link: i.link, imagem: i.imagem, fonte: i.fonte, dominio: i.dominio,
     resumo: i.resumo, categoria: i.categoria, cor: i.cor,
     data: (i.publicadoEm || i.dataPub).toISOString(), edicao: numeroEdicao, arquivo

@@ -275,6 +275,154 @@ ${antigas.map(item).join("\n")}
   </section>`;
 }
 
+// ---------- fontes parceiras (blogs Blogger) ----------
+//
+// data/fontes-parceiras.json: [{ "nome", "url", "rotulo", "quantidade" }]
+// O robô grava os posts no HTML (funciona sem JavaScript) e a página
+// atualiza ao abrir, via JSONP do feed do Blogger (sem esperar o robô).
+
+const ARQ_PARCEIROS = path.join(RAIZ, "data", "fontes-parceiras.json");
+const PARCEIROS_PADRAO = [
+  { nome: "O Que a Notícia Não Disse", url: "https://oqueanoticianaodisse.blogspot.com",
+    rotulo: "Opinião", quantidade: 3 }
+];
+
+function urlFeedBlogger(base, qtd, callback) {
+  const raiz = String(base).replace(/\/+$/, "");
+  return `${raiz}/feeds/posts/default?alt=${callback ? "json-in-script&callback=" + callback : "json"}&max-results=${qtd}`;
+}
+
+/** Miniatura do Blogger vem em 72px (s72-c): pede versão 640x400. */
+function ampliarImagem(url) {
+  return String(url || "")
+    .replace(/\/s\d+(-c)?\//, "/w640-h400-c/")
+    .replace(/=s\d+(-c)?$/, "=w640-h400-c");
+}
+
+function postsDoFeedBlogger(json, qtd) {
+  const entradas = (json && json.feed && json.feed.entry) || [];
+  return entradas.slice(0, qtd).map(e => {
+    const link = ((e.link || []).find(l => l.rel === "alternate") || {}).href || "";
+    const conteudo = (e.content && e.content.$t) || (e.summary && e.summary.$t) || "";
+    const imgConteudo = (conteudo.match(/<img[^>]+src="([^"]+)"/i) || [])[1] || "";
+    const thumb = (e["media$thumbnail"] && e["media$thumbnail"].url) || "";
+    return {
+      titulo: B.limparHtml((e.title && e.title.$t) || ""),
+      link,
+      imagem: thumb ? ampliarImagem(thumb) : imgConteudo,
+      data: (e.published && e.published.$t) || "",
+      resumo: B.cortar(B.limparHtml(conteudo), 150)
+    };
+  }).filter(p => p.titulo && /^https?:/.test(p.link));
+}
+
+async function buscarParceiros() {
+  const lista = B.lerJson(ARQ_PARCEIROS, PARCEIROS_PADRAO);
+  const out = [];
+  for (const p of lista) {
+    const qtd = p.quantidade || 3;
+    let posts = [];
+    try {
+      const ctrl = new AbortController();
+      const t = setTimeout(() => ctrl.abort(), 8000);
+      const r = await fetch(urlFeedBlogger(p.url, qtd), { signal: ctrl.signal });
+      clearTimeout(t);
+      if (r.ok) posts = postsDoFeedBlogger(await r.json(), qtd);
+      console.log(`Parceiro ${p.nome}: ${posts.length} posts`);
+    } catch (e) {
+      console.warn(`Parceiro ${p.nome}: feed indisponível (${e.message}); a página tenta de novo ao abrir`);
+    }
+    out.push({ ...p, quantidade: qtd, posts });
+  }
+  return out;
+}
+
+function cardParceiroHtml(post, cor) {
+  const reserva = `assets/capa-${cor}.svg`;
+  const d = dataCurta(post.data);
+  return `
+        <article class="p-card p-parceiro__card">
+          <a class="p-card__capa" ${alvo(post)} tabindex="-1" aria-hidden="true"><img src="${post.imagem ? esc(post.imagem) : reserva}" alt="" loading="lazy" onerror="this.onerror=null;this.src='${reserva}'"></a>
+          ${d ? `<span class="p-meta"><time datetime="${esc(post.data)}">${d}</time></span>` : ""}
+          <h3><a ${alvo(post)}>${esc(post.titulo)}</a></h3>
+          ${post.resumo ? `<p class="p-parceiro__resumo">${esc(post.resumo)}</p>` : ""}
+        </article>`;
+}
+
+function secaoParceiroHtml(p, i) {
+  const id = `parceiro-${i}`;
+  return `
+  <section class="p-parceiro" id="${id}" data-feed="${esc(urlFeedBlogger(p.url, p.quantidade, "__CB__"))}" data-qtd="${p.quantidade}"${p.posts.length ? "" : " hidden"}>
+    <div class="p-parceiro__cabecalho">
+      <div>
+        ${p.rotulo ? `<span class="p-parceiro__rotulo">${esc(p.rotulo)}</span>` : ""}
+        <h2>${esc(p.nome)}</h2>
+      </div>
+      <a class="p-parceiro__link" href="${esc(p.url)}" target="_blank" rel="noopener">Ver o blog →</a>
+    </div>
+    <div class="p-parceiro__grade">
+${p.posts.map(post => cardParceiroHtml(post, "neutro")).join("\n")}
+    </div>
+  </section>`;
+}
+
+/**
+ * Atualização ao vivo (ES5, sem dependências). Para cada seção com data-feed,
+ * carrega o feed via JSONP e redesenha os cards. Falhou? Mantém o que o robô gravou.
+ */
+function scriptParceirosHtml() {
+  return `<script>
+(function () {
+  function ampliar(u) { return String(u || "").replace(/\\/s\\d+(-c)?\\//, "/w640-h400-c/").replace(/=s\\d+(-c)?$/, "=w640-h400-c"); }
+  function texto(h) { var d = document.createElement("div"); d.innerHTML = h || ""; return (d.textContent || "").replace(/\\s+/g, " ").replace(/^\\s+|\\s+$/g, ""); }
+  function cortar(t, n) { if (t.length <= n) return t; t = t.slice(0, n); var i = t.lastIndexOf(" "); return (i > n * 0.6 ? t.slice(0, i) : t) + "\\u2026"; }
+  function dataCurta(iso) {
+    var d = new Date(iso); if (isNaN(d)) return "";
+    var hoje = new Date(); function dd(n) { return (n < 10 ? "0" : "") + n; }
+    if (d.toDateString() === hoje.toDateString()) return "Hoje, " + dd(d.getHours()) + ":" + dd(d.getMinutes());
+    return dd(d.getDate()) + "/" + dd(d.getMonth() + 1);
+  }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
+  function link(href, cls) { var a = el("a", cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  var secoes = document.querySelectorAll(".p-parceiro[data-feed]");
+  for (var i = 0; i < secoes.length; i++) (function (sec, n) {
+    var cb = "__parceiro" + n + "_" + new Date().getTime();
+    window[cb] = function (json) {
+      try {
+        var ent = (json && json.feed && json.feed.entry) || [], qtd = +sec.getAttribute("data-qtd") || 3;
+        var grade = sec.querySelector(".p-parceiro__grade"), novos = [];
+        for (var k = 0; k < ent.length && novos.length < qtd; k++) {
+          var e = ent[k], href = "", links = e.link || [];
+          for (var j = 0; j < links.length; j++) if (links[j].rel === "alternate") href = links[j].href;
+          if (!href) continue;
+          var conteudo = (e.content && e.content.$t) || (e.summary && e.summary.$t) || "";
+          var m = /<img[^>]+src="([^"]+)"/i.exec(conteudo);
+          var thumb = e["media$thumbnail"] && e["media$thumbnail"].url;
+          var art = el("article", "p-card p-parceiro__card");
+          var capa = link(href, "p-card__capa"); capa.tabIndex = -1; capa.setAttribute("aria-hidden", "true");
+          var img = document.createElement("img"); img.alt = ""; img.loading = "lazy";
+          img.onerror = function () { this.onerror = null; this.src = "assets/capa-neutro.svg"; };
+          img.src = thumb ? ampliar(thumb) : (m ? m[1] : "assets/capa-neutro.svg");
+          capa.appendChild(img); art.appendChild(capa);
+          var data = dataCurta(e.published && e.published.$t);
+          if (data) { var meta = el("span", "p-meta"); meta.appendChild(el("time", "", data)); art.appendChild(meta); }
+          var h3 = el("h3"); var ta = link(href); ta.textContent = texto(e.title && e.title.$t); h3.appendChild(ta); art.appendChild(h3);
+          var res = cortar(texto(conteudo), 150); if (res) art.appendChild(el("p", "p-parceiro__resumo", res));
+          novos.push(art);
+        }
+        if (novos.length) { grade.innerHTML = ""; for (var q = 0; q < novos.length; q++) grade.appendChild(novos[q]); sec.hidden = false; }
+      } catch (err) { /* mantém versão do robô */ }
+      try { delete window[cb]; } catch (x) { window[cb] = undefined; }
+    };
+    var s = document.createElement("script");
+    s.src = sec.getAttribute("data-feed").replace("__CB__", cb);
+    s.onerror = function () { /* blog fora do ar: mantém versão do robô */ };
+    document.body.appendChild(s);
+  })(secoes[i], i);
+})();
+</script>`;
+}
+
 // ---------- montagem ----------
 
 function montarCapa(noticias, boletins) {
@@ -313,8 +461,9 @@ function montarCapa(noticias, boletins) {
   return { hero, ultimas, secundarias, blocos, mais };
 }
 
-function htmlCapa(noticias, boletins) {
+function htmlCapa(noticias, boletins, parceiros) {
   const { hero, ultimas, secundarias, blocos, mais } = montarCapa(noticias, boletins);
+  const secoesParceiros = (parceiros || []).map(secaoParceiroHtml).join("\n");
   const ultima = boletins[0];
   const hoje = new Date().toLocaleDateString("pt-BR",
     { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "America/Sao_Paulo" });
@@ -324,6 +473,7 @@ function htmlCapa(noticias, boletins) {
 ${heroHtml(hero)}
 ${ultimasHtml(ultimas)}
   </div>
+${secoesParceiros}
 
   ${secundarias.length ? `<div class="p-faixa">
 ${secundarias.map(cardFotoHtml).join("\n")}
@@ -367,14 +517,16 @@ ${conteudo}
 ${edicoesHtml(boletins)}
 </main>
 ${B.rodapeSite("")}
+${secoesParceiros ? scriptParceirosHtml() : ""}
 </body>
 </html>
 `;
 }
 
 /** Ponto de entrada. novas: notícias da edição recém-gerada (opcional). */
-function gerarCapa(novas) {
+async function gerarCapa(novas) {
   const boletins = B.lerJson(ARQ_BOLETINS, []);
+  const parceiros = await buscarParceiros();
   let noticias = B.lerJson(ARQ_NOTICIAS, []);
   let origem = "data/noticias.json";
   if (noticias.length < 12) {
@@ -383,10 +535,10 @@ function gerarCapa(novas) {
   }
   noticias = mesclar(novas || [], noticias);
   B.salvarJson(ARQ_NOTICIAS, noticias);
-  fs.writeFileSync(path.join(RAIZ, "index.html"), htmlCapa(filtrarParaCapa(noticias), boletins), "utf8");
+  fs.writeFileSync(path.join(RAIZ, "index.html"), htmlCapa(filtrarParaCapa(noticias), boletins, parceiros), "utf8");
   console.log(`Capa gerada: ${noticias.length} notícias (${origem}), ${boletins.length} edições`);
 }
 
-if (require.main === module) gerarCapa();
+module.exports = { gerarCapa, lerEdicaoHtml, montarCapa, postsDoFeedBlogger, ampliarImagem };
 
-module.exports = { gerarCapa, lerEdicaoHtml, montarCapa };
+if (require.main === module) gerarCapa().catch(e => { console.error(e); process.exit(1); });
