@@ -105,6 +105,39 @@
     </aside>
   </div>
 
+  <section class="p-parceiro" id="parceiro-0" data-feed="https://oqueanoticianaodisse.blogspot.com/feeds/posts/default?alt=json-in-script&amp;callback=__CB__&amp;max-results=3" data-qtd="3">
+    <div class="p-parceiro__cabecalho">
+      <div>
+        <span class="p-parceiro__rotulo">Opinião</span>
+        <h2>O Que a Notícia Não Disse</h2>
+      </div>
+      <a class="p-parceiro__link" href="https://oqueanoticianaodisse.blogspot.com" target="_blank" rel="noopener">Ver o blog →</a>
+    </div>
+    <div class="p-parceiro__grade">
+
+        <article class="p-card p-parceiro__card">
+          <a class="p-card__capa" href="https://oqueanoticianaodisse.blogspot.com/2026/11/escala-6x1-o-destaque-de-fux-que-muda-o.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="https://lh3.googleusercontent.com/d/1Sg_MFvDXTP8YYgkDnpQf3TS0bbZ7jYhN=w640-h400-c" alt="" loading="lazy" onerror="this.onerror=null;this.src='assets/capa-neutro.svg'"></a>
+          <span class="p-meta"><time datetime="2026-11-15T14:50:00.000-03:00">Hoje, 14:50</time></span>
+          <h3><a href="https://oqueanoticianaodisse.blogspot.com/2026/11/escala-6x1-o-destaque-de-fux-que-muda-o.html" target="_blank" rel="noopener">Escala 6x1: o destaque de Fux que muda o rumo do caso</a></h3>
+          <p class="p-parceiro__resumo">Publicado em 15/11/2026 às 14:50 Tem um detalhe no regimento que faz um julgamento virtual inteiro mudar de lugar, e ele aconteceu nesta semana. Em…</p>
+        </article>
+
+        <article class="p-card p-parceiro__card">
+          <a class="p-card__capa" href="https://oqueanoticianaodisse.blogspot.com/2026/11/semana-em-ordem-o-guia-pratico-para.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="https://lh3.googleusercontent.com/d/1vreZ7Oygbte2kXkd6KWmwivH04CVbxW4=w640-h400-c" alt="" loading="lazy" onerror="this.onerror=null;this.src='assets/capa-neutro.svg'"></a>
+          <span class="p-meta"><time datetime="2026-11-15T11:11:00.000-03:00">Hoje, 11:11</time></span>
+          <h3><a href="https://oqueanoticianaodisse.blogspot.com/2026/11/semana-em-ordem-o-guia-pratico-para.html" target="_blank" rel="noopener">Semana em Ordem: O guia prático para organizar a rotina na cozinha</a></h3>
+          <p class="p-parceiro__resumo">Publicado em 15/11/2026 às 11:11 Tem uma orientação oficial que muda o jeito de planejar o prato, e ela está escondida nas diretrizes. Em 30…</p>
+        </article>
+
+        <article class="p-card p-parceiro__card">
+          <a class="p-card__capa" href="https://oqueanoticianaodisse.blogspot.com/2026/11/meta-multa-de-r-5-bilhoes-na-italia-por.html" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><img src="https://lh3.googleusercontent.com/d/1dJFUJq6ZhodozV5AoLltNWzQu5c2kMC8=w640-h400-c" alt="" loading="lazy" onerror="this.onerror=null;this.src='assets/capa-neutro.svg'"></a>
+          <span class="p-meta"><time datetime="2026-11-15T07:13:00.000-03:00">Hoje, 07:13</time></span>
+          <h3><a href="https://oqueanoticianaodisse.blogspot.com/2026/11/meta-multa-de-r-5-bilhoes-na-italia-por.html" target="_blank" rel="noopener">Meta: a multa de R$ 5 bilhões na Itália por acesso a fotos</a></h3>
+          <p class="p-parceiro__resumo">Publicado em 15/11/2026 às 07:13 Tem um detalhe sobre o acesso a fotos que gerou uma conta bilionária, e os roteiristas da vida real capricharam no…</p>
+        </article>
+    </div>
+  </section>
+
   <div class="p-faixa">
 
       <article class="p-card">
@@ -515,5 +548,55 @@
   <p>Curadoria automática diária a partir de feeds públicos. Títulos e imagens pertencem às fontes originais e levam até elas. Imagens marcadas com o nome do site são ilustrações do boletim.</p>
   <p><a href="index.html#edicoes">Todas as edições</a></p>
 </footer>
+<script>
+(function () {
+  function ampliar(u) { return String(u || "").replace(/\/s\d+(-c)?\//, "/w640-h400-c/").replace(/=s\d+(-c)?$/, "=w640-h400-c"); }
+  function texto(h) { var d = document.createElement("div"); d.innerHTML = h || ""; return (d.textContent || "").replace(/\s+/g, " ").replace(/^\s+|\s+$/g, ""); }
+  function cortar(t, n) { if (t.length <= n) return t; t = t.slice(0, n); var i = t.lastIndexOf(" "); return (i > n * 0.6 ? t.slice(0, i) : t) + "\u2026"; }
+  function dataCurta(iso) {
+    var d = new Date(iso); if (isNaN(d)) return "";
+    var hoje = new Date(); function dd(n) { return (n < 10 ? "0" : "") + n; }
+    if (d.toDateString() === hoje.toDateString()) return "Hoje, " + dd(d.getHours()) + ":" + dd(d.getMinutes());
+    return dd(d.getDate()) + "/" + dd(d.getMonth() + 1);
+  }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt) e.textContent = txt; return e; }
+  function link(href, cls) { var a = el("a", cls); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  var secoes = document.querySelectorAll(".p-parceiro[data-feed]");
+  for (var i = 0; i < secoes.length; i++) (function (sec, n) {
+    var cb = "__parceiro" + n + "_" + new Date().getTime();
+    window[cb] = function (json) {
+      try {
+        var ent = (json && json.feed && json.feed.entry) || [], qtd = +sec.getAttribute("data-qtd") || 3;
+        var grade = sec.querySelector(".p-parceiro__grade"), novos = [];
+        for (var k = 0; k < ent.length && novos.length < qtd; k++) {
+          var e = ent[k], href = "", links = e.link || [];
+          for (var j = 0; j < links.length; j++) if (links[j].rel === "alternate") href = links[j].href;
+          if (!href) continue;
+          var conteudo = (e.content && e.content.$t) || (e.summary && e.summary.$t) || "";
+          var m = /<img[^>]+src="([^"]+)"/i.exec(conteudo);
+          var thumb = e["media$thumbnail"] && e["media$thumbnail"].url;
+          var art = el("article", "p-card p-parceiro__card");
+          var capa = link(href, "p-card__capa"); capa.tabIndex = -1; capa.setAttribute("aria-hidden", "true");
+          var img = document.createElement("img"); img.alt = ""; img.loading = "lazy";
+          img.onerror = function () { this.onerror = null; this.src = "assets/capa-neutro.svg"; };
+          img.src = thumb ? ampliar(thumb) : (m ? m[1] : "assets/capa-neutro.svg");
+          capa.appendChild(img); art.appendChild(capa);
+          var data = dataCurta(e.published && e.published.$t);
+          if (data) { var meta = el("span", "p-meta"); meta.appendChild(el("time", "", data)); art.appendChild(meta); }
+          var h3 = el("h3"); var ta = link(href); ta.textContent = texto(e.title && e.title.$t); h3.appendChild(ta); art.appendChild(h3);
+          var res = cortar(texto(conteudo), 150); if (res) art.appendChild(el("p", "p-parceiro__resumo", res));
+          novos.push(art);
+        }
+        if (novos.length) { grade.innerHTML = ""; for (var q = 0; q < novos.length; q++) grade.appendChild(novos[q]); sec.hidden = false; }
+      } catch (err) { /* mantém versão do robô */ }
+      try { delete window[cb]; } catch (x) { window[cb] = undefined; }
+    };
+    var s = document.createElement("script");
+    s.src = sec.getAttribute("data-feed").replace("__CB__", cb);
+    s.onerror = function () { /* blog fora do ar: mantém versão do robô */ };
+    document.body.appendChild(s);
+  })(secoes[i], i);
+})();
+</script>
 </body>
 </html>
