@@ -701,15 +701,17 @@ async function principal() {
   console.log(`Publicado: posts/${arquivo} (edição nº ${numeroEdicao}, ${escolhidos.length} matérias)`);
 }
 
-if (require.main === module) {
-  principal().catch(e => { console.error(e); process.exit(1); });
-}
-
-module.exports = {
+// Exporta ANTES de executar: gerar-capa.js importa este arquivo durante a execução,
+// e precisa encontrar as funções já disponíveis (Object.assign mantém a mesma referência).
+Object.assign(module.exports, {
   radicais, nomesProprios, sobreposicao, semelhantes, ehEstrangeiro, pontuarFonte,
   temTermoNegativo, selecionar, extrairMetaPagina, resumoUtil, formatarData, cortar,
   FILTROS_PADRAO, principal,
   // usados por gerar-capa.js
   escaparHtml, limparHtml, decodificarEntidades, normalizar, metaTags,
   cabecalhoSite, rodapeSite, lerJson, salvarJson, URL_BASE, NOME_SITE
-};
+});
+
+if (require.main === module) {
+  principal().catch(e => { console.error(e); process.exit(1); });
+}
