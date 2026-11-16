@@ -1,5 +1,50 @@
 [
   {
+    "numero": 112,
+    "data": "2026-11-16",
+    "dataExtenso": "16 de novembro de 2026",
+    "arquivo": "2026-11-16.html",
+    "total": 3,
+    "destaques": [
+      {
+        "titulo": "Governo articula recursos inéditos para políticas de inclusão digital",
+        "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPM3FfbTRiTUtnME9LSGNGTDYwQ3V5UlFSdFM5VjMtZmRiTGFubzdKc3loajk0UWN4UVctRFFOXzVSY0lEeGw4N0VPT3FuNUEtdlpSQXExdElYajFzNTVUNDAzWUl0S1VkaGUtdmg2YjNGeUVwYkRRblFjN3FUdFdWSW53NjFLaV9neFE?oc=5",
+        "imagem": "",
+        "fonte": "Revista Fórum",
+        "dominio": "revistaforum.com.br",
+        "resumo": "",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-16T20:23:52.000Z",
+        "dataTxt": "16/11/2026 · 17:23"
+      },
+      {
+        "titulo": "IFPB transforma equipamentos apreendidos em inclusão digital e cidadania",
+        "link": "https://paraibaonline.com.br/educacao-e-ciencia/2026/11/15/ifpb-transforma-equipamentos-apreendidos-em-inclusao-digital-e-cidadania/",
+        "imagem": "",
+        "fonte": "ParaibaOnline",
+        "dominio": "paraibaonline.com.br",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-15T18:30:05.000Z",
+        "dataTxt": "15/11/2026 · 15:30"
+      },
+      {
+        "titulo": "MCom apresenta ações de cobertura móvel e inclusão digital como base para a preparação ao 6G",
+        "link": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNcmNWLUVoT0VhVkdkVTVtRlNOT0VyR1RQYlpzUVkwUmxEQk1yYTdLaFZYQjJwNDM4WHptdjFPVnhHOXNEWmU1ZWRpZS1QUW1OR0RLZmR4NWx6eHVnZTdtTHJkYXU3dzZYLUZUTFkyUVpRaXVaZS1ldlgxeEJPek1nTzdBWUoyeWluVVJza3RGb1FpeXQ3Zm9ZOUpCSFlsQ3htLVpNRGYxdUU3MnczUUI3VEVhUVJQUktNbngzR0JldTRuR1R5M3hRYVpDODdDNGZfZUFPLWVmN0VvMGw2YV9LSkQ0MFZPLUZPS1l5NzAtN1dLOWNINXhfQWZDUmFNN01WRGJKWmxn?oc=5",
+        "imagem": "",
+        "fonte": "Data Center Dynamics",
+        "dominio": "datacenterdynamics.com",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-16T14:17:57.000Z",
+        "dataTxt": "16/11/2026 · 11:17"
+      }
+    ]
+  },
+  {
     "numero": 111,
     "data": "2026-11-15",
     "dataExtenso": "15 de novembro de 2026",
