@@ -1,5 +1,62 @@
 [
   {
+    "numero": 114,
+    "data": "2026-11-18",
+    "dataExtenso": "18 de novembro de 2026",
+    "arquivo": "2026-11-18.html",
+    "total": 7,
+    "destaques": [
+      {
+        "titulo": "Reeleição de Ruanda na UIT mantém país nas decisões globais sobre conectividade, inclusão digital e inteligência artificial",
+        "link": "https://omundodiplomatico.com.br/2026/11/18/reeleicao-de-ruanda-na-uit-mantem-pais-nas-decisoes-globais-sobre-conectividade-inclusao-digital-e-inteligencia-artificial/",
+        "imagem": "https://omundodiplomatico.com.br/wp-content/uploads/2026/11/6c93d494-0176-4fd7-827e-0ae42480f64c.png",
+        "fonte": "O Mundo Diplomático",
+        "dominio": "omundodiplomatico.com.br",
+        "resumo": "Ruanda vai continuar a ter voz nos principais espaços internacionais ligados à tecnologia. O país foi reeleito para o Conselho da União Internacional de Telecomunicações (UIT), órgão das Nações…",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-18T19:37:05.000Z",
+        "dataTxt": "18/11/2026 · 16:37"
+      },
+      {
+        "titulo": "Projeto de inclusão digital vai abranger mais de 700 crianças em DV",
+        "link": "https://jornaldebeltrao.com.br/geral/dois-vizinhos/projeto-de-inclusao-digital-vai-abranger-mais-de-700-criancas-em-dv/",
+        "imagem": "https://cdn.jornaldebeltrao.com.br/wp-content/uploads/2026/11/computadores.webp",
+        "fonte": "Jornal de Beltrão",
+        "dominio": "jornaldebeltrao.com.br",
+        "resumo": "Dois Vizinhos recebe 60 computadores da Itaipu Binacional para fortalecer projetos de inclusão digital, robótica e qualificação de jovens da Sudotec.",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-18T17:15:00.000Z",
+        "dataTxt": "18/11/2026 · 14:15"
+      },
+      {
+        "titulo": "Daniel Córdoba propõe inclusão digital em São Caetano",
+        "link": "https://www.abcdoabc.com.br/daniel-cordoba-propoe-inclusao-digital/",
+        "imagem": "https://cdn-imgs.s3.sa-east-1.amazonaws.com/wp-content/uploads/2026/11/daniel-cordoba-2.webp",
+        "fonte": "Portal ABC do ABC",
+        "dominio": "abcdoabc.com.br",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-18T17:22:20.000Z",
+        "dataTxt": "18/11/2026 · 14:22"
+      },
+      {
+        "titulo": "CCT aprova R$ 1,5 bilhão em emendas para tecnologia e inclusão digital",
+        "link": "https://telesintese.com.br/cct-aprova-r-15-bilhao-em-emendas-para-tecnologia-e-inclusao-digital/",
+        "imagem": "https://telesintese.com.br/wp-content/uploads/2026/11/CCT-Senado-1.jpg",
+        "fonte": "TeleSíntese",
+        "dominio": "telesintese.com.br",
+        "resumo": "Comissão do Senado selecionou seis propostas para o Orçamento de 2027, incluindo R$ 300 milhões para inclusão digital e R$ 345 milhões para o setor espacial",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-18T15:16:28.000Z",
+        "dataTxt": "18/11/2026 · 12:16"
+      }
+    ]
+  },
+  {
     "numero": 113,
     "data": "2026-11-17",
     "dataExtenso": "17 de novembro de 2026",
