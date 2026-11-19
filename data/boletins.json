@@ -1,5 +1,62 @@
 [
   {
+    "numero": 115,
+    "data": "2026-11-19",
+    "dataExtenso": "19 de novembro de 2026",
+    "arquivo": "2026-11-19.html",
+    "total": 6,
+    "destaques": [
+      {
+        "titulo": "Em Pacaraima (RR), MDHC integra “Justiça Itinerante e Inclusão Digital” ampliando o alcance do Disque 100",
+        "link": "https://www.gov.br/mdh/pt-br/assuntos/noticias/2026/novembro/em-pacaraima-rr-mdhc-integra-201cjustica-itinerante-e-inclusao-digital201d-ampliando-o-alcance-do-disque-100",
+        "imagem": "https://www.gov.br/mdh/pt-br/assuntos/noticias/2026/novembro/em-pacaraima-rr-mdhc-integra-201cjustica-itinerante-e-inclusao-digital201d-ampliando-o-alcance-do-disque-100/formato-foto-mdhc-49.jpg/@@images/019c7522-30aa-4850-9dbb-a7b119a757fa.jpeg",
+        "fonte": "GOV.BR",
+        "dominio": "gov.br",
+        "resumo": "Ação promovida pelo Conselho Superior da Justiça do Trabalho (CSJT) entre os dias 16 a 19 de novembro ofertou serviços gratuitos de promoção da cidadania a locais e migrantes venezuelanos",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-19T18:08:23.000Z",
+        "dataTxt": "19/11/2026 · 15:08"
+      },
+      {
+        "titulo": "Em Pernambuco, MDHC e MCom realizam entrega de computadores para a inclusão digital",
+        "link": "https://www.gov.br/mdh/pt-br/assuntos/noticias/2026/novembro/em-pernambuco-mdhc-e-mcom-realizam-entrega-de-computadores-para-a-inclusao-digital",
+        "imagem": "https://www.gov.br/mdh/pt-br/assuntos/noticias/2026/novembro/em-pernambuco-mdhc-e-mcom-realizam-entrega-de-computadores-para-a-inclusao-digital/0d4d7ddd-7929-435c-8703-6c2da01bc9dd.jpeg/@@images/33137767-2028-4887-b75b-93bfd6e258e3.jpeg",
+        "fonte": "GOV.BR",
+        "dominio": "gov.br",
+        "resumo": "Aparelhos vão equipar 22 pontos de inclusão digital, ampliando o acesso à tecnologia e possibilitando conexão, oportunidades e desenvolvimento social",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-19T17:56:06.000Z",
+        "dataTxt": "19/11/2026 · 14:56"
+      },
+      {
+        "titulo": "Internet e capacitação digital abre mercado para mulheres empreendedoras",
+        "link": "https://agenciagov.ebc.com.br/noticias/202611/internet-abre-mercado-para-mulheres-empreendedoras-e-impulsiona-negocios-ate-em-comunidades-ribeirinhas",
+        "imagem": "https://agenciagov.ebc.com.br/noticias/202611/internet-abre-mercado-para-mulheres-empreendedoras-e-impulsiona-negocios-ate-em-comunidades-ribeirinhas/@@download/image/Internet.jpeg",
+        "fonte": "Agência Gov",
+        "dominio": "agenciagov.ebc.com.br",
+        "resumo": "No Dia Mundial do Empreendedorismo Feminino, mulheres paraenses e pernambucanas mostram como programas do Ministério das Comunicações levaram conectividade e capacitação digital para ampliar vendas…",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-19T15:16:00.000Z",
+        "dataTxt": "19/11/2026 · 12:16"
+      },
+      {
+        "titulo": "Telecentro para idosos está fechado há mais de quatro meses no centro de SP",
+        "link": "https://www1.folha.uol.com.br/cotidiano/2026/11/telecentro-para-idosos-esta-fechado-ha-mais-de-quatro-meses-no-centro-de-sp.shtml",
+        "imagem": "https://f.i.uol.com.br/fotografia/2026/11/12/17945006726af5e840d24c3_1794500672_3x2_xl.jpg",
+        "fonte": "Folha de S.Paulo",
+        "dominio": "www1.folha.uol.com.br",
+        "resumo": "Secretaria Municipal de Inovação e Tecnologia atribui encerramento a fim de parceria com ONG e diz que avalia retomar atendimento, mas não informa prazo",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-19T04:15:00.000Z",
+        "dataTxt": "19/11/2026 · 01:15"
+      }
+    ]
+  },
+  {
     "numero": 114,
     "data": "2026-11-18",
     "dataExtenso": "18 de novembro de 2026",
