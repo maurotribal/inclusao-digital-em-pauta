@@ -1,5 +1,62 @@
 [
   {
+    "numero": 116,
+    "data": "2026-11-21",
+    "dataExtenso": "21 de novembro de 2026",
+    "arquivo": "2026-11-21.html",
+    "total": 4,
+    "destaques": [
+      {
+        "titulo": "Desigualdade no acesso à internet entre brancos e pretos cai 85%",
+        "link": "https://agenciabrasil.ebc.com.br/radioagencia-nacional/geral/audio/2026-11/desigualdade-no-acesso-internet-entre-brancos-e-pretos-cai-85",
+        "imagem": "https://imagens.ebc.com.br/SDB95VSltCc6pL9qmM6WAiJIlrA=/1600x800/https://agenciabrasil.ebc.com.br/sites/default/files/thumbnails/image/img_8732.jpg?itok=xRDf1jV7",
+        "fonte": "Agência Brasil",
+        "dominio": "agenciabrasil.ebc.com.br",
+        "resumo": "A diferença no acesso à internet entre pretos e brancos caiu 85% nos últimos 10 anos. A informação é do Instituto Brasileiro de Geografia e Estatística (IBGE). A Pesquisa Nacional por Amostra de…",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-20T01:48:00.000Z",
+        "dataTxt": "19/11/2026 · 22:48"
+      },
+      {
+        "titulo": "Campus Party Weekend reúne 15 mil pessoas no Piauí e destaca avanços do Estado em inteligência artificial, educação e inclusão digital",
+        "link": "https://rbtv.com.br/noticia/34178/campus-party-weekend-reune-15-mil-pessoas-no-piaui-e-destaca-avancos-do-estado-em-inteligencia-artificial-educacao-e-inclusao-digital",
+        "imagem": "https://str1.lnmimg.net/img/2026/11/21/f6e16d456aab1e3aebb6f01685880f41.webp",
+        "fonte": "REDE BRASIL DE TELEVISÃO",
+        "dominio": "rbtv.com.br",
+        "resumo": "A terceira edição da Campus Party Weekend no Piauí começou neste sábado (21), no Centro de Convenções de Teresina, com 15 mil inscritos e uma progr...",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-21T17:24:10.000Z",
+        "dataTxt": "21/11/2026 · 14:24"
+      },
+      {
+        "titulo": "Conexão precária atinge 59% dos internautas e governo discute recursos para inclusão digital",
+        "link": "https://almapreta.com.br/sessao/politica/conexao-precaria-recursos-inclusao-digital/",
+        "imagem": "",
+        "fonte": "Alma Preta Jornalismo",
+        "dominio": "almapreta.com.br",
+        "resumo": "",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-21T14:56:34.000Z",
+        "dataTxt": "21/11/2026 · 11:56"
+      },
+      {
+        "titulo": "Luxemburgo organiza pela primeira vez uma Semana da Inclusão Digital",
+        "link": "https://www.contacto.lu/luxemburgo/luxemburgo-organiza-pela-primeira-vez-uma-semana-da-inclusao-digital/164866369.html",
+        "imagem": "",
+        "fonte": "contacto.lu",
+        "dominio": "contacto.lu",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-21T13:27:01.000Z",
+        "dataTxt": "21/11/2026 · 10:27"
+      }
+    ]
+  },
+  {
     "numero": 115,
     "data": "2026-11-19",
     "dataExtenso": "19 de novembro de 2026",
