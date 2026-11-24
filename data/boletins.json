@@ -1,5 +1,62 @@
 [
   {
+    "numero": 118,
+    "data": "2026-11-24",
+    "dataExtenso": "24 de novembro de 2026",
+    "arquivo": "2026-11-24.html",
+    "total": 4,
+    "destaques": [
+      {
+        "titulo": "Expansão da conectividade e inclusão digital estão entre as prioridades para receber recursos de emendas parlamentares em 2027",
+        "link": "https://www.gov.br/mcom/pt-br/noticias/2026/novembro/expansao-da-conectividade-e-inclusao-digital-estao-entre-as-prioridades-para-receber-recursos-de-emendas-parlamentares-em-2027",
+        "imagem": "https://www.gov.br/mcom/pt-br/noticias/2026/novembro/expansao-da-conectividade-e-inclusao-digital-estao-entre-as-prioridades-para-receber-recursos-de-emendas-parlamentares-em-2027/@@images/image-800-869ca47d6ac39d084dcb90a234e91a61.png",
+        "fonte": "Governo Federal",
+        "dominio": "gov.br",
+        "resumo": "Diretrizes constam em portaria publicada pelo Ministério das Comunicações no Diário Oficial da União desta terça-feira (24)",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-24T19:52:52.000Z",
+        "dataTxt": "24/11/2026 · 16:52"
+      },
+      {
+        "titulo": "Projeto leva inclusão digital e criatividade para escolas públicas no Rio de Janeiro",
+        "link": "https://brasilescola.uol.com.br/noticias/projeto-leva-inclusao-digital-para-escolas-publica-rio-de-janeiro/3133543.html",
+        "imagem": "https://s2.static.brasilescola.uol.com.br/be/2026/11/inclusao-digital-em-escolas-publicas1.png",
+        "fonte": "Brasil Escola",
+        "dominio": "brasilescola.uol.com.br",
+        "resumo": "Chamado \"Conectados do Bem\", projeto incentiva estudantes a pensarem na realidade a partir de conceitos tecnológicos.",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-24T15:04:00.000Z",
+        "dataTxt": "24/11/2026 · 12:04"
+      },
+      {
+        "titulo": "MPTO lança cartilha sobre racismo algorítmico e exclusão digital",
+        "link": "https://agora-to.com.br/mpto-lanca-cartilha-sobre-racismo-algoritmico-e-exclusao-digital/",
+        "imagem": "https://agora-to.com.br/wp-content/uploads/2026/11/MPTO-TO.webp",
+        "fonte": "Portal Agora Tocantins",
+        "dominio": "agora-to.com.br",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-24T17:22:17.000Z",
+        "dataTxt": "24/11/2026 · 14:22"
+      },
+      {
+        "titulo": "Inclusão digital na melhor idade: Assistência Social de Nova Boa Vista abre inscrições para curso de celular com atendimento personalizado",
+        "link": "https://radiosarandi.com.br/noticia/8816/Inclusao-digital-na-melhor-idade-Assistencia-Social-de-Nova-Boa-Vista-abre-inscricoes-para-curso-de-celular-com-atendimento-personalizado",
+        "imagem": "https://www.radiosarandi.com.br/arquivos/img_noticia_v2/a34ed2fb501d13b69f2fa09c2a6c9f50.jpg",
+        "fonte": "Rádio Sarandi",
+        "dominio": "radiosarandi.com.br",
+        "resumo": "",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-24T11:34:33.000Z",
+        "dataTxt": "24/11/2026 · 08:34"
+      }
+    ]
+  },
+  {
     "numero": 117,
     "data": "2026-11-23",
     "dataExtenso": "23 de novembro de 2026",
