@@ -1,5 +1,62 @@
 [
   {
+    "numero": 119,
+    "data": "2026-11-25",
+    "dataExtenso": "25 de novembro de 2026",
+    "arquivo": "2026-11-25.html",
+    "total": 9,
+    "destaques": [
+      {
+        "titulo": "São José promove formatura de idosos participantes do Projeto Inclusão Digital nesta quinta-feira (26)",
+        "link": "https://realnews.com.br/sao-jose-promove-formatura-de-idosos-participantes-do-projeto-inclusao-digital-nesta-quinta-feira-26/",
+        "imagem": "https://realnews.com.br/wp-content/uploads/2026/11/rnsc-215492-136790a69e6a.webp",
+        "fonte": "realnews.com.br",
+        "dominio": "realnews.com.br",
+        "resumo": "São José realizará em 26 de novembro a formatura de 20 idosos do projeto Inclusão Digital, com aulas de celular, aplicativos e segurança na internet.",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-25T18:35:28.000Z",
+        "dataTxt": "25/11/2026 · 15:35"
+      },
+      {
+        "titulo": "Letramento Digital na Rede Municipal de Educação encerra 2026 com 596 alunos participantes",
+        "link": "https://blog.londrina.pr.gov.br/?p",
+        "imagem": "",
+        "fonte": "Blog Londrina",
+        "dominio": "blog.londrina.pr.gov.br",
+        "resumo": "",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-25T15:40:04.000Z",
+        "dataTxt": "25/11/2026 · 12:40"
+      },
+      {
+        "titulo": "Emendas parlamentares de 2027 deverão priorizar conectividade e inclusão digital, define MCom",
+        "link": "https://www.datacenterdynamics.com/br/not%C3%ADcias/emendas-parlamentares-de-2027-dever%C3%A3o-priorizar-conectividade-e-inclus%C3%A3o-digital-define-mcom/",
+        "imagem": "",
+        "fonte": "Data Center Dynamics",
+        "dominio": "datacenterdynamics.com",
+        "resumo": "",
+        "categoria": "Acesso e Conectividade",
+        "cor": "verde",
+        "dataPub": "2026-11-25T13:43:06.000Z",
+        "dataTxt": "25/11/2026 · 10:43"
+      },
+      {
+        "titulo": "Presidente do TJGO inaugura Pontos de Inclusão Digital em Guarani e Divinópolis de Goiás",
+        "link": "https://www.tjgo.jus.br/index.php/agencia-de-noticias/noticias-ccs/240-carrossel-tj/38151-presidente-do-tjgo-inaugura-pids-em-guarani-e-divinopolis-de-goias-e-alcanca-a-marca-de-82-unidades-entregues-pela-atual-gestao",
+        "imagem": "",
+        "fonte": "Tribunal de Justiça do Estado de Goiás",
+        "dominio": "tjgo.jus.br",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-24T22:01:07.000Z",
+        "dataTxt": "24/11/2026 · 19:01"
+      }
+    ]
+  },
+  {
     "numero": 118,
     "data": "2026-11-24",
     "dataExtenso": "24 de novembro de 2026",
