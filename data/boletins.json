@@ -1,5 +1,62 @@
 [
   {
+    "numero": 120,
+    "data": "2026-11-26",
+    "dataExtenso": "26 de novembro de 2026",
+    "arquivo": "2026-11-26.html",
+    "total": 8,
+    "destaques": [
+      {
+        "titulo": "”Precisamos transformar o espectro em investimentos que reduzam as desigualdades de conectividade”, afirma secretário de Telecomunicações do MCom",
+        "link": "https://www.gov.br/mcom/pt-br/noticias/2026/novembro/precisamos-transformar-o-espectro-em-investimentos-que-reduzam-as-desigualdades-de-conectividade-afirma-secretario-de-telecomunicacoes-do-mcom",
+        "imagem": "https://www.gov.br/mcom/pt-br/noticias/2026/novembro/precisamos-transformar-o-espectro-em-investimentos-que-reduzam-as-desigualdades-de-conectividade-afirma-secretario-de-telecomunicacoes-do-mcom/@@images/image-800-f7c7bf35fc946db6ab5a28b6f4c967c3.jpeg",
+        "fonte": "Governo Federal",
+        "dominio": "gov.br",
+        "resumo": "Durante o 1º Fórum Brasileiro do Espectro, Hermano Tercius destacou o Plano Nacional de Inclusão Digital como referência para orientar os próximos leilões de radiofrequência e ampliar a…",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-26T13:28:00.000Z",
+        "dataTxt": "26/11/2026 · 10:28"
+      },
+      {
+        "titulo": "Incentivo à inclusão digital de idosos em tratamento de saúde mental vai à sanção",
+        "link": "https://www12.senado.leg.br/noticias/videos/2026/11/incentivo-a-inclusao-digital-de-idosos-em-tratamento-de-saude-mental-vai-a-sancao",
+        "imagem": "https://www12.senado.leg.br/noticias/videos/2026/11/incentivo-a-inclusao-digital-de-idosos-em-tratamento-de-saude-mental-vai-a-sancao/@@images/51f15e81-f8ed-49f8-8903-93d1e4b5cd9d.jpeg",
+        "fonte": "Senado",
+        "dominio": "www12.senado.leg.br",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-26T13:47:58.000Z",
+        "dataTxt": "26/11/2026 · 10:47"
+      },
+      {
+        "titulo": "Aprendizado que conecta: idosos de São José celebram conclusão do curso de Inclusão Digital",
+        "link": "https://realnews.com.br/aprendizado-que-conecta-idosos-de-sao-jose-celebram-conclusao-do-curso-de-inclusao-digital/",
+        "imagem": "https://realnews.com.br/wp-content/uploads/2026/11/rnsc-219197-8877fef34fd0.jpg",
+        "fonte": "Real News",
+        "dominio": "realnews.com.br",
+        "resumo": "Aos 65 anos, Rosemeri Davila de Jesus concluiu o curso de Inclusão Digital com muito mais conhecimento do que tinha quando começou. Se antes sabia apenas o bá…",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-26T20:35:20.000Z",
+        "dataTxt": "26/11/2026 · 17:35"
+      },
+      {
+        "titulo": "Com foco na inclusão digital, Senac-ES leva curso prático sobre segurança online e inteligência artificial para público 50+ em Itaguaçu e Santa Maria de Jetibá",
+        "link": "https://www.es.senac.br/noticias/com-foco-na-inclusao-digital-senac-es-leva-curso-pratico-sobre-seguranca-online-e-inteligencia-artificial-para-publico-50-em-itaguacu-e-santa-maria-de-jetiba-1310",
+        "imagem": "https://es.senac.br/admin/data/dynamic/noticias/1310/2e1418043eab4d6fd75f7ccc2859782f_lg_original_.jpg",
+        "fonte": "senac es",
+        "dominio": "es.senac.br",
+        "resumo": "Ampliar a autonomia e garantir a navegação segura no ambiente digital para pessoas com 50 anos ou mais. Esse é o objetivo do curso Conectados com Segurança: Sma...",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-26T03:00:00.000Z",
+        "dataTxt": "26/11/2026 · 00:00"
+      }
+    ]
+  },
+  {
     "numero": 119,
     "data": "2026-11-25",
     "dataExtenso": "25 de novembro de 2026",
