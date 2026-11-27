@@ -1,5 +1,62 @@
 [
   {
+    "numero": 121,
+    "data": "2026-11-27",
+    "dataExtenso": "27 de novembro de 2026",
+    "arquivo": "2026-11-27.html",
+    "total": 10,
+    "destaques": [
+      {
+        "titulo": "BELÉM – Notícia Pai D’Égua realiza oficinas gratuitas de Inclusão Digital e Programação",
+        "link": "https://ver-o-fato.com.br/belem-noticia-pai-degua-realiza-oficinas-gratuitas-de-inclusao-digital-e-programacao/",
+        "imagem": "https://ver-o-fato.com.br/wp-content/uploads/imagens-sociais/254315-190b56ac12.jpg",
+        "fonte": "Ver-o-Fato",
+        "dominio": "ver-o-fato.com.br",
+        "resumo": "Projeto da Sacramenta oferece oficinas gratuitas de Cidadania Digital e Programação Criativa (Portugol e Python) em dezembro, na Ason e no IFPA. Veja como se inscrever.",
+        "categoria": "Políticas Públicas",
+        "cor": "amarelo",
+        "dataPub": "2026-11-27T19:05:08.000Z",
+        "dataTxt": "27/11/2026 · 16:05"
+      },
+      {
+        "titulo": "Inclusão digital de idosos avança no Senado, mas garantia do direito ainda enfrenta desafios estruturais",
+        "link": "https://esginside.com.br/2026/11/27/inclusao-digital-de-idosos-avanca-no-senado-mas-garantia-do-direito-ainda-enfrenta-desafios-estruturais/",
+        "imagem": "",
+        "fonte": "ESG Inside",
+        "dominio": "esginside.com.br",
+        "resumo": "",
+        "categoria": "Panorama",
+        "cor": "neutro",
+        "dataPub": "2026-11-27T18:50:36.000Z",
+        "dataTxt": "27/11/2026 · 15:50"
+      },
+      {
+        "titulo": "Os Códigos de Sofia – Letramento digital para profs e responsáveis. Turma2",
+        "link": "https://www.sescsp.org.br/programacao/os-codigos-de-sofia-letramento-digital-para-profs-e-responsaveis-turma2/",
+        "imagem": "",
+        "fonte": "Sesc São Paulo",
+        "dominio": "sescsp.org.br",
+        "resumo": "",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-27T18:49:05.000Z",
+        "dataTxt": "27/11/2026 · 15:49"
+      },
+      {
+        "titulo": "Projeto de Paula Calil propõe ampliar acesso à internet gratuita em espaços públicos e bairros de Cuiabá",
+        "link": "https://vejabemmt.com.br/projeto-de-paula-calil-propoe-ampliar-acesso-a-internet-gratuita-em-espacos-publicos-e-bairros-de-cuiaba/",
+        "imagem": "https://vejabemmt.com.br/content/images/size/w1200/2026/11/WhatsApp-Image-2026-11-27-at-09.22.13.jpeg",
+        "fonte": "Veja Bem MT",
+        "dominio": "vejabemmt.com.br",
+        "resumo": "",
+        "categoria": "Educação Digital",
+        "cor": "ciano",
+        "dataPub": "2026-11-27T18:11:23.000Z",
+        "dataTxt": "27/11/2026 · 15:11"
+      }
+    ]
+  },
+  {
     "numero": 120,
     "data": "2026-11-26",
     "dataExtenso": "26 de novembro de 2026",
